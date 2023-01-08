@@ -23,7 +23,7 @@ namespace Player.Movement
 
         InputAction look;
 
-        private void Awake()
+        private void Start()
         {
             if (!IsOwner) return;
 
@@ -49,6 +49,8 @@ namespace Player.Movement
 
         private void Update()
         {
+            if (!IsOwner) return;
+
             LookInput = look.ReadValue<Vector2>();
 
             Vector2 vec = rot;

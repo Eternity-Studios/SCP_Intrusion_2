@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7674946197788289600}
+  - component: {fileID: 5162060222085485251}
   - component: {fileID: 6093961046758927094}
   m_Layer: 0
   m_Name: PlayerLogic
@@ -32,6 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5162060222085485251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674946197788289601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b106dafdab23b149ae07a7c7ae14f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObject: {fileID: 1237343986794030290, guid: dd215640dcba6be48bcdea1b255c789d,
+    type: 3}
 --- !u!114 &6093961046758927094
 MonoBehaviour:
   m_ObjectHideFlags: 0

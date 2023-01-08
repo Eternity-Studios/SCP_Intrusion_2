@@ -25,7 +25,7 @@ namespace Player.Movement
         float grav;
         float jumpBuffer;
 
-        private void Awake()
+        private void Start()
         {
             controller = GetComponent<CharacterController>();
 

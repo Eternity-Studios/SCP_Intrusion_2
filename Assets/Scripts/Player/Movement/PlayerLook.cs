@@ -1,11 +1,13 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Player.Movement
 {
-    public class PlayerLook : MonoBehaviour
+    [DisallowMultipleComponent]
+    public class PlayerLook : NetworkBehaviour
     {
-        public static PlayerLook Instance;
+        public static PlayerLook OwnedInstance;
 
         public float Sensitivity = 0.45f;
         public float ClampAngle = 90f;
@@ -23,7 +25,9 @@ namespace Player.Movement
 
         private void Awake()
         {
-            if (Instance == null) Instance = this;
+            if (!IsOwner) return;
+
+            if (OwnedInstance == null) OwnedInstance = this;
             else Destroy(gameObject);
 
             inputActions = new Game();
@@ -38,7 +42,7 @@ namespace Player.Movement
             Cursor.visible = false;
         }
 
-        private void OnDestroy()
+        public override void OnDestroy()
         {
             look.Disable();
         }

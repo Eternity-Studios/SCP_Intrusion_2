@@ -1,10 +1,12 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Player.Movement
 {
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerMovement : MonoBehaviour
+    [DisallowMultipleComponent]
+    public class PlayerMovement : NetworkBehaviour
     {
         public float Speed = 5f;
         public float JumpSpeed = 1f;
@@ -25,17 +27,19 @@ namespace Player.Movement
 
         private void Awake()
         {
+            controller = GetComponent<CharacterController>();
+
+            if (!IsOwner) return;
+
             inputs = new Game();
             movement = inputs.Player.Movement;
-
-            controller = GetComponent<CharacterController>();
 
             inputs.Player.Jump.performed += JumpInput;
 
             inputs.Player.Enable();
         }
 
-        private void OnDestroy()
+        public override void OnDestroy()
         {
             inputs.Player.Jump.performed -= JumpInput;
 
@@ -44,6 +48,8 @@ namespace Player.Movement
 
         private void Update()
         {
+            if (!IsOwner) return;
+
             MovementInput = movement.ReadValue<Vector2>();
 
             if (jumpBuffer > 0f)

@@ -25,7 +25,11 @@ namespace Player.Movement
 
         private void Start()
         {
-            if (!IsOwner) return;
+            if (!IsOwner)
+            {
+                camTransform.GetComponentInChildren<Camera>().gameObject.SetActive(false);
+                return;
+            }
 
             if (OwnedInstance == null) OwnedInstance = this;
             else Destroy(gameObject);
@@ -33,7 +37,6 @@ namespace Player.Movement
             inputActions = new Game();
 
             look = inputActions.Player.Look;
-
             look.Enable();
 
             rot = camTransform.eulerAngles;
@@ -44,6 +47,8 @@ namespace Player.Movement
 
         public override void OnDestroy()
         {
+            if (!IsOwner) return;
+
             look.Disable();
         }
 

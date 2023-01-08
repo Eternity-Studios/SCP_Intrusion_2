@@ -7,6 +7,7 @@ namespace Player.Management
     {
         public static List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
 
+        [HideInInspector]
         public bool Used;
 
         private void Awake()

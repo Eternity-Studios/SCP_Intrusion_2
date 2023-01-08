@@ -12,6 +12,7 @@ namespace Player.Movement
         public float JumpSpeed = 1f;
         public float JumpBufferTime = 0.2f;
         public float Gravity = 9.81f;
+        public float StoppingForce = 10f;
 
         [HideInInspector]
         public Vector2 MovementInput;
@@ -35,14 +36,14 @@ namespace Player.Movement
             movement = inputs.Player.Movement;
 
             inputs.Player.Jump.performed += JumpInput;
-
             inputs.Player.Enable();
         }
 
         public override void OnDestroy()
         {
-            inputs.Player.Jump.performed -= JumpInput;
+            if (!IsOwner) return;
 
+            inputs.Player.Jump.performed -= JumpInput;
             inputs.Player.Disable();
         }
 
@@ -66,7 +67,7 @@ namespace Player.Movement
                 jumpBuffer = 0f;
 
             if (controller.isGrounded && grav <= 0f)
-                grav = -0.3f;
+                grav = Mathf.MoveTowards(grav, -0.3f, StoppingForce * Time.deltaTime);
             else if (!controller.isGrounded)
                 grav -= Gravity * Time.deltaTime;
 

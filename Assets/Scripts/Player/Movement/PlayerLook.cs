@@ -48,7 +48,6 @@ namespace Player.Movement
         public override void OnDestroy()
         {
             if (!IsOwner) return;
-
             look.Disable();
         }
 

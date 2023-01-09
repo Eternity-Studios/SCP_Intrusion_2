@@ -26,10 +26,13 @@ namespace Player.Movement
         float grav;
         float jumpBuffer;
 
-        private void Start()
+        private void Awake()
         {
             controller = GetComponent<CharacterController>();
+        }
 
+        public override void OnNetworkSpawn()
+        {
             if (!IsOwner) return;
 
             inputs = new Game();

@@ -16,21 +16,18 @@ namespace Player.Management
 
         public SpawnPoint GetAvailableSpawnPoint()
         {
-            foreach (SpawnPoint sp in SpawnPoint.spawnPoints)
-            {
-                if (!sp.Used)
-                    return sp;
-            }
-
-            return null;
+            return SpawnPoint.spawnPoints[Random.Range(0, SpawnPoint.spawnPoints.Count)];
         }
 
         [ServerRpc(RequireOwnership = false)]
         public void SpawnPlayerServerRpc()
         {
+            SpawnPoint sp = GetAvailableSpawnPoint();
+
             Debug.Log("Spawn Player! Client ID: " + OwnerClientId);
-            Transform p = Instantiate(playerObject, GetAvailableSpawnPoint().transform.position, Quaternion.identity);
-            p.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
+
+            Transform p = Instantiate(playerObject, sp.transform.position, Quaternion.identity);
+            p.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId, true);
         }
     }
 }

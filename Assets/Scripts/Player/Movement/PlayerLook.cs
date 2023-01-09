@@ -23,7 +23,7 @@ namespace Player.Movement
 
         InputAction look;
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
             if (!IsOwner)
             {
@@ -70,9 +70,10 @@ namespace Player.Movement
             transform.rotation = Quaternion.Euler(0f, rot.y, 0f);
         }
 
-        public void CamAdd(float x)
+        public void CamAdd(float x, float y)
         {
             rot.x += x;
+            rot.y += y;
         }
     }
 }

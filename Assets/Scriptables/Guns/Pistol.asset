@@ -18,7 +18,7 @@ MonoBehaviour:
   RecoilCooldown: 5
   CooldownDelay: 0.2
   Spread: 0.25
-  RPS: 10
+  RPS: 6
   RecoilPattern:
     serializedVersion: 2
     m_Curve:
@@ -32,32 +32,14 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.567281
     - serializedVersion: 3
-      time: 4.024906
-      value: 0.17262459
-      inSlope: -0.25208405
-      outSlope: -0.25208405
+      time: 8.078699
+      value: 0.004218855
+      inSlope: -0.19946226
+      outSlope: -0.19946226
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.3702204
-    - serializedVersion: 3
-      time: 6.5839343
-      value: -0.36185667
-      inSlope: -0.051317368
-      outSlope: -0.051317368
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 12.771789
-      value: 0.29545617
-      inSlope: -1.0821159
-      outSlope: -1.0821159
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.78561616
+      inWeight: 0.12320859
+      outWeight: 0.020747105
     - serializedVersion: 3
       time: 15
       value: 0

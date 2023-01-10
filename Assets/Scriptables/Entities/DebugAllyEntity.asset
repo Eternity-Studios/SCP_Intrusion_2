@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb315339c06ded747b5ef7ace00dd2c9, type: 3}
-  m_Name: BreakableBox
+  m_Name: DebugAllyEntity
   m_EditorClassIdentifier: 
   Health: 100
   DeathObjects:
   - {fileID: 3070866059349966950, guid: 3478487d7c935d34885d2f3b8826b6a9, type: 3}
-  Faction: 1
+  Faction: 0

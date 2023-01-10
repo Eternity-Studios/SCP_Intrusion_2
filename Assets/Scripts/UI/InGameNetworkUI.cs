@@ -69,6 +69,7 @@ namespace UI
         public void Disconnect()
         {
             NetworkManager.Singleton.Shutdown();
+            SceneManager.LoadScene("Menu");
         }
     }
 }

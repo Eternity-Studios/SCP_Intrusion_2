@@ -46,6 +46,16 @@ namespace Player.Movement
             Cursor.visible = false;
         }
 
+        public override void OnDestroy()
+        {
+            if (!IsOwner)
+                return;
+
+            look.Disable();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
         private void Update()
         {
             if (!IsOwner) return;

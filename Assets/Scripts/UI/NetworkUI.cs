@@ -10,9 +10,6 @@ namespace UI
     public class NetworkUI : MonoBehaviour
     {
         [SerializeField]
-        GameObject mainMenu;
-
-        [SerializeField]
         TMP_InputField ipInput;
 
         [SerializeField]
@@ -20,7 +17,19 @@ namespace UI
         [SerializeField]
         Button client;
 
+        [SerializeField]
+        int joinGameIndex;
+        [SerializeField]
+        int mainMenuIndex;
+
+        TabsUI tabs;
+
         UnityTransport ut;
+
+        private void Awake()
+        {
+            tabs = GetComponent<TabsUI>();
+        }
 
         private void Start()
         {
@@ -38,17 +47,20 @@ namespace UI
             {
                 ut.ConnectionData.Address = ipInput.text;
                 NetworkManager.Singleton.StartClient();
+                tabs.ActivateTab(joinGameIndex);
             });
-        }
-
-        private void OnDestroy()
-        {
-            NetworkManager.Singleton.OnServerStarted -= OnServerStarted;
         }
 
         public void OnServerStarted()
         {
+            NetworkManager.Singleton.OnServerStarted -= OnServerStarted;
             NetworkManager.Singleton.SceneManager.LoadScene("Game", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        }
+
+        public void Shutdown()
+        {
+            NetworkManager.Singleton.Shutdown();
+            tabs.ActivateTab(mainMenuIndex);
         }
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 25
   Ammo: 15
-  Recoil: 0.5
+  Recoil: 0.7
   RecoilCooldown: 5
   CooldownDelay: 0.2
   Spread: 0.25
@@ -25,29 +25,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.25301322
-      outSlope: 0.25301322
+      inSlope: 0.14204487
+      outSlope: 0.14204487
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.567281
+      outWeight: 0.45884684
     - serializedVersion: 3
-      time: 8.078699
-      value: 0.004218855
-      inSlope: -0.19946226
-      outSlope: -0.19946226
+      time: 7
+      value: 0
+      inSlope: -0.3120884
+      outSlope: -0.3120884
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.12320859
-      outWeight: 0.020747105
+      inWeight: 0.12698404
+      outWeight: 0.18176854
     - serializedVersion: 3
       time: 15
       value: 0
-      inSlope: 0.2839246
-      outSlope: 0.2839246
+      inSlope: 0.08392862
+      outSlope: 0.08392862
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.095087886
+      inWeight: 0.70444083
       outWeight: 0
     m_PreInfinity: 1
     m_PostInfinity: 1

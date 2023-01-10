@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Player.Management
 {
+    [DisallowMultipleComponent]
     public class SpawnPoint : MonoBehaviour
     {
         public static List<SpawnPoint> spawnPoints = new List<SpawnPoint>();

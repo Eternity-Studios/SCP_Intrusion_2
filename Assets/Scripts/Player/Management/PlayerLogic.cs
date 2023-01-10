@@ -3,10 +3,12 @@ using UnityEngine;
 
 namespace Player.Management
 {
+    [RequireComponent(typeof(NetworkObject))]
+    [DisallowMultipleComponent]
     public class PlayerLogic : NetworkBehaviour
     {
         [SerializeField]
-        Transform playerObject;
+        GameObject playerObject;
 
         public override void OnNetworkSpawn()
         {
@@ -26,7 +28,7 @@ namespace Player.Management
 
             Debug.Log("Spawn Player! Client ID: " + OwnerClientId);
 
-            Transform p = Instantiate(playerObject, sp.transform.position, Quaternion.identity);
+            GameObject p = Instantiate(playerObject, sp.transform.position, Quaternion.identity);
             p.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId, true);
         }
     }

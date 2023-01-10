@@ -1,10 +1,13 @@
 using Player.Movement;
+using Entities;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Guns 
 {
+    [RequireComponent(typeof(NetworkObject))]
+    [DisallowMultipleComponent]
     public class Gun : NetworkBehaviour
     {
         public GunStats gun;
@@ -14,6 +17,8 @@ namespace Guns
         Game inputActions;
 
         Transform shootPoint;
+
+        Entity owner;
 
         bool IsShooting;
 
@@ -32,9 +37,7 @@ namespace Guns
                 shootFactor = 0f;
 
             if (IsShooting)
-            {
                 Shoot();
-            }
         }
 
         public override void OnNetworkSpawn()
@@ -45,6 +48,8 @@ namespace Guns
             if (!IsOwner) return;
 
             shootPoint = PlayerLook.OwnedInstance.camTransform.Find("FirePoint");
+
+            TryGetComponent(out owner);
 
             inputActions = new Game();
 
@@ -82,7 +87,7 @@ namespace Guns
 
         public void Recoil()
         {
-            PlayerLook.OwnedInstance.CamAdd(gun.Recoil, gun.RecoilPattern.Evaluate(shootFactor));
+            PlayerLook.OwnedInstance.CamAdd(gun.Recoil, gun.RecoilPattern.Evaluate(shootFactor) * gun.Recoil);
         }
 
         [ServerRpc]
@@ -94,6 +99,14 @@ namespace Guns
                 {
                     NetworkObject spawn = Instantiate(go, _hit.point, Quaternion.FromToRotation(_hit.point, _hit.normal)).GetComponent<NetworkObject>();
                     spawn.Spawn(true);
+                }
+
+                if (_hit.transform.TryGetComponent(out Entity ent))
+                {
+                    if (ent.entity.Faction == owner.entity.Faction)
+                        return;
+
+                    ent.TakeDamage(gun.Damage);
                 }
             }
         }

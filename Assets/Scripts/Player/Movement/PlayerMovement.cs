@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 namespace Player.Movement
 {
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
     public class PlayerMovement : NetworkBehaviour
     {

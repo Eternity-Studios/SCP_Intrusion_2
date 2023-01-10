@@ -4878,7 +4878,7 @@ GameObject:
   - component: {fileID: 3070866059349966945}
   - component: {fileID: 3070866059349966944}
   m_Layer: 0
-  m_Name: Flash
+  m_Name: Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

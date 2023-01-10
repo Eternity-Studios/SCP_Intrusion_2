@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Player.Movement
 {
+    [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
     public class PlayerLook : NetworkBehaviour
     {

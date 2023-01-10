@@ -46,12 +46,6 @@ namespace Player.Movement
             Cursor.visible = false;
         }
 
-        public override void OnDestroy()
-        {
-            if (!IsOwner) return;
-            look.Disable();
-        }
-
         private void Update()
         {
             if (!IsOwner) return;
@@ -75,6 +69,24 @@ namespace Player.Movement
         {
             rot.x += x;
             rot.y += y;
+        }
+
+        public void SetState(bool state)
+        {
+            if (!IsOwner) return;
+
+            if (state)
+            {
+                look.Enable();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                look.Disable();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
     }
 }

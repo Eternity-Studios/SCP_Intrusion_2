@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace Player.Management
@@ -7,11 +5,14 @@ namespace Player.Management
     [DisallowMultipleComponent]
     public class SpawnPoint : MonoBehaviour
     {
-        public static List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
+        public static SpawnPoint Singleton;
+
+        public Transform[] Spawns;
 
         private void Awake()
         {
-            spawnPoints.Add(this);
+            if (Singleton == null) Singleton = this;
+            else Destroy(gameObject);
         }
     }
 }

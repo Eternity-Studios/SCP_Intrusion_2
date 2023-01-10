@@ -4,12 +4,11 @@ using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Networking.UI
+namespace UI
 {
+    [DisallowMultipleComponent]
     public class NetworkUI : MonoBehaviour
     {
-        [SerializeField]
-        GameObject lobbyCam;
         [SerializeField]
         GameObject mainMenu;
 
@@ -19,16 +18,13 @@ namespace Networking.UI
         [SerializeField]
         Button host;
         [SerializeField]
-        Button server;
-        [SerializeField]
         Button client;
 
         UnityTransport ut;
 
-        private void Awake()
+        private void Start()
         {
-            NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnect;
-            NetworkManager.Singleton.OnClientConnectedCallback += OnConnect;
+            NetworkManager.Singleton.OnServerStarted += OnServerStarted;
 
             ut = (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
 
@@ -38,10 +34,6 @@ namespace Networking.UI
             {
                 NetworkManager.Singleton.StartHost();
             });
-            server.onClick.AddListener(() =>
-            {
-                NetworkManager.Singleton.StartServer();
-            });
             client.onClick.AddListener(() =>
             {
                 ut.ConnectionData.Address = ipInput.text;
@@ -49,16 +41,14 @@ namespace Networking.UI
             });
         }
 
-        public void OnConnect(ulong clientId)
+        private void OnDestroy()
         {
-            lobbyCam.SetActive(false);
-            mainMenu.SetActive(false);
+            NetworkManager.Singleton.OnServerStarted -= OnServerStarted;
         }
 
-        public void OnDisconnect(ulong clientId)
+        public void OnServerStarted()
         {
-            lobbyCam.SetActive(true);
-            mainMenu.SetActive(true);
+            NetworkManager.Singleton.SceneManager.LoadScene("Game", UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
     }
 }

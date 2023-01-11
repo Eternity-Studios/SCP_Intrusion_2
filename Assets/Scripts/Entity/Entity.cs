@@ -15,12 +15,17 @@ namespace Entities
         {
             if (IsServer)
                 currentHealth.Value = entity.Health;
+
+            if (IsClient)
+                enabled = false;
         }
 
         public void TakeDamage(int dmg)
         {
             if (!IsServer)
                 return;
+
+            Debug.Log(gameObject.name + " Took Damage: " + dmg + "; IsServer: " + IsServer);
 
             currentHealth.Value -= dmg;
 
@@ -38,6 +43,8 @@ namespace Entities
                 NetworkObject spawn = Instantiate(go, transform.position, transform.rotation).GetComponent<NetworkObject>();
                 spawn.Spawn(true);
             }
+
+            Debug.Log("Destroying " + gameObject.name + "; IsServer: " + IsServer);
 
             NetworkObject.Despawn(true);
         }

@@ -25,6 +25,11 @@ namespace Guns
         float timer;
         float shootFactor;
 
+        private void Awake()
+        {
+            TryGetComponent(out owner);
+        }
+
         private void Update()
         {
             if (!IsOwner) return;
@@ -48,8 +53,6 @@ namespace Guns
             if (!IsOwner) return;
 
             shootPoint = PlayerLook.OwnedInstance.camTransform.Find("FirePoint");
-
-            TryGetComponent(out owner);
 
             inputActions = new Game();
 
@@ -95,9 +98,9 @@ namespace Guns
         {
             if (Physics.Raycast(position, direction, out RaycastHit _hit, Mathf.Infinity, gun.HitMask))
             {
-                foreach (GameObject go in gun.HitObjects)
+                foreach (NetworkObject go in gun.HitObjects)
                 {
-                    NetworkObject spawn = Instantiate(go, _hit.point, Quaternion.FromToRotation(_hit.point, _hit.normal)).GetComponent<NetworkObject>();
+                    NetworkObject spawn = Instantiate(go, _hit.point, Quaternion.FromToRotation(_hit.point, _hit.normal));
                     spawn.Spawn(true);
                 }
 

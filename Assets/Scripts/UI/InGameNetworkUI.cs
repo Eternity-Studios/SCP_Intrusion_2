@@ -37,6 +37,9 @@ namespace UI
 
         private void OnClientDisconnectCallback(ulong clientId)
         {
+            if (clientId != NetworkManager.Singleton.LocalClientId && clientId != NetworkManager.ServerClientId)
+                return;
+
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnectCallback;
             SceneManager.LoadScene("Menu");
         }

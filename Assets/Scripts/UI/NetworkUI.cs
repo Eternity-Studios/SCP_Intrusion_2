@@ -46,6 +46,7 @@ namespace UI
             client.onClick.AddListener(() =>
             {
                 ut.ConnectionData.Address = ipInput.text;
+                Debug.Log("Connecting to Server: " + ipInput.text);
                 NetworkManager.Singleton.StartClient();
                 tabs.ActivateTab(joinGameIndex);
             });

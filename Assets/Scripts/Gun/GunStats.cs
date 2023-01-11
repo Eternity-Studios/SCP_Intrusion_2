@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Guns
@@ -17,6 +18,6 @@ namespace Guns
         public AnimationCurve RecoilPattern;
 
         public LayerMask HitMask;
-        public GameObject[] HitObjects;
+        public NetworkObject[] HitObjects;
     }
 }

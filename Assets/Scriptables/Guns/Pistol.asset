@@ -56,4 +56,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   HitObjects:
-  - {fileID: 3070866059349966950, guid: 3478487d7c935d34885d2f3b8826b6a9, type: 3}
+  - {fileID: 8511859656867846070, guid: 3478487d7c935d34885d2f3b8826b6a9, type: 3}

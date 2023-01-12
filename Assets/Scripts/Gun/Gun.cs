@@ -109,7 +109,7 @@ namespace Guns
                     if (ent.entity.Faction == owner.entity.Faction)
                         return;
 
-                    ent.TakeDamage(gun.Damage);
+                    ent.TakeDamage(gun.Damage, OwnerClientId);
                 }
             }
         }

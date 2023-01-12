@@ -20,7 +20,7 @@ namespace Entities
                 enabled = false;
         }
 
-        public void TakeDamage(int dmg)
+        public void TakeDamage(int dmg, ulong attackerId)
         {
             if (!IsServer)
                 return;
@@ -30,10 +30,10 @@ namespace Entities
             currentHealth.Value -= dmg;
 
             if (currentHealth.Value <= 0)
-                Death();
+                Death(attackerId);
         }
 
-        public void Death()
+        public void Death(ulong attackerId)
         {
             if (!IsServer)
                 return;

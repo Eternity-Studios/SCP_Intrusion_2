@@ -18,7 +18,7 @@ MonoBehaviour:
   RecoilCooldown: 5
   CooldownDelay: 0.2
   Spread: 0.45
-  RPS: 5
+  RPS: 6.5
   RecoilPattern:
     serializedVersion: 2
     m_Curve:
@@ -57,3 +57,4 @@ MonoBehaviour:
     m_Bits: 1
   HitObjects:
   - {fileID: 8511859656867846070, guid: 3478487d7c935d34885d2f3b8826b6a9, type: 3}
+  ViewModel: {fileID: 0}

@@ -19,5 +19,7 @@ namespace Guns
 
         public LayerMask HitMask;
         public NetworkObject[] HitObjects;
+
+        public GameObject ViewModel;
     }
 }

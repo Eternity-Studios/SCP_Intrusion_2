@@ -3,6 +3,8 @@ using Entities;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
+using Random = UnityEngine.Random;
 
 namespace Guns 
 {
@@ -73,6 +75,8 @@ namespace Guns
 
             Spread();
 
+            OnShoot();
+
             ShootServerRpc(shootPoint.position, shootPoint.forward);
 
             Recoil();
@@ -121,5 +125,8 @@ namespace Guns
             else if (callbackContext.canceled)
                 IsShooting = false;
         }
+
+        public event Action onShoot;
+        public void OnShoot() { if (onShoot != null) onShoot(); }
     }
 }

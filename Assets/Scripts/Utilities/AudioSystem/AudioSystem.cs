@@ -12,7 +12,7 @@ namespace Utilities.Audio
 
         public static void PlaySound(AudioClip _sound, Vector2 _position, float _volume, int _priority)
         {
-            GameObject soundObj = new GameObject("Sound", typeof(AudioSource), typeof(DestroyAfter));
+            GameObject soundObj = new("Sound", typeof(AudioSource), typeof(DestroyAfter));
             AudioSource au = soundObj.GetComponent<AudioSource>();
             DestroyAfter des = soundObj.GetComponent<DestroyAfter>();
             soundObj.transform.position = _position;

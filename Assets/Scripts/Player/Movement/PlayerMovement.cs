@@ -75,7 +75,7 @@ namespace Player.Movement
             else if (!controller.isGrounded)
                 grav -= Gravity * Time.deltaTime;
 
-            Vector3 motion = transform.right * MovementInput.x * Speed * Time.deltaTime + transform.forward * MovementInput.y * Speed * Time.deltaTime + Vector3.up * grav * Time.deltaTime;
+            Vector3 motion = MovementInput.x * Speed * Time.deltaTime * transform.right + MovementInput.y * Speed * Time.deltaTime * transform.forward + grav * Time.deltaTime * Vector3.up;
 
             controller.Move(motion);
         }

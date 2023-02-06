@@ -14,7 +14,7 @@ namespace Guns
     {
         public GunStats gun;
 
-        NetworkVariable<int> currentAmmo = new NetworkVariable<int>(0);
+        readonly NetworkVariable<int> currentAmmo = new(0);
 
         Game inputActions;
 
@@ -127,6 +127,6 @@ namespace Guns
         }
 
         public event Action onShoot;
-        public void OnShoot() { if (onShoot != null) onShoot(); }
+        public void OnShoot() { if (onShoot != null) OnShoot(); }
     }
 }

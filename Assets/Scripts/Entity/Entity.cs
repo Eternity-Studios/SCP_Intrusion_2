@@ -9,7 +9,7 @@ namespace Entities
     {
         public EntityStats entity;
 
-        NetworkVariable<int> currentHealth = new NetworkVariable<int>(0);
+        readonly NetworkVariable<int> currentHealth = new(0);
 
         public override void OnNetworkSpawn()
         {

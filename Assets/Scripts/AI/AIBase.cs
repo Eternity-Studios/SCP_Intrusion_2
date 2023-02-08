@@ -15,9 +15,12 @@ namespace AI
             agent = GetComponent<NavMeshAgent>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            
+            if (target != null)
+            {
+                agent.SetDestination(target.transform.position);
+            }
         }
     }
 }

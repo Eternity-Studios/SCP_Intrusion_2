@@ -100,11 +100,11 @@ namespace Guns
         [ServerRpc]
         public void ShootServerRpc(Vector3 position, Vector3 direction)
         {
-            if (Physics.Raycast(position, direction, out RaycastHit _hit, Mathf.Infinity, gun.HitMask))
+            if (Physics.Raycast(position, direction, out RaycastHit _hit, Mathf.Infinity, gun.HitMask, QueryTriggerInteraction.Ignore))
             {
                 foreach (NetworkObject go in gun.HitObjects)
                 {
-                    NetworkObject spawn = Instantiate(go, _hit.point, Quaternion.FromToRotation(_hit.point, _hit.normal));
+                    NetworkObject spawn = Instantiate(go, _hit.point, shootPoint.rotation);
                     spawn.Spawn(true);
                 }
 
@@ -127,6 +127,6 @@ namespace Guns
         }
 
         public event Action onShoot;
-        public void OnShoot() { if (onShoot != null) OnShoot(); }
+        public void OnShoot() { onShoot?.Invoke(); }
     }
 }

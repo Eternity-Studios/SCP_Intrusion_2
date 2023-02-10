@@ -27,7 +27,8 @@ namespace Utilities.Audio
             if (audioMixer == null)
                 audioMixer = Resources.Load<AudioMixer>("AudioMixer").FindMatchingGroups("Master/Effects")[0];
 
-            au.outputAudioMixerGroup = audioMixer;
+            if (audioMixer != null)
+                au.outputAudioMixerGroup = audioMixer;
 
             au.Play();
         }

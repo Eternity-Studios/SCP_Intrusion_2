@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -29,6 +30,8 @@ namespace Entities
 
             currentHealth.Value -= dmg;
 
+            OnDamage(attackerId, dmg);
+
             if (currentHealth.Value <= 0)
                 Death(attackerId);
         }
@@ -44,9 +47,17 @@ namespace Entities
                 spawn.Spawn(true);
             }
 
+            OnDeath(attackerId);
+
             Debug.Log("Destroying " + gameObject.name + "; IsServer: " + IsServer);
 
             NetworkObject.Despawn(true);
         }
+
+        public event Action<ulong, int> onDamage;
+        public void OnDamage(ulong attackerId, int dmg) { onDamage?.Invoke(attackerId, dmg); }
+
+        public event Action<ulong> onDeath;
+        public void OnDeath(ulong attackerId) { onDeath?.Invoke(attackerId); }
     }
 }

@@ -6,7 +6,7 @@ namespace Entities
 {
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
-    public class Entity : NetworkBehaviour
+    public class Entity : NetworkBehaviour, IHealth
     {
         public EntityStats entity;
 
@@ -59,5 +59,10 @@ namespace Entities
 
         public event Action<ulong> onDeath;
         public void OnDeath(ulong attackerId) { onDeath?.Invoke(attackerId); }
+    }
+
+    public interface IHealth
+    {
+        public void TakeDamage(int dmg, ulong attackerId);
     }
 }

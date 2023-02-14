@@ -108,12 +108,15 @@ namespace Guns
                     spawn.Spawn(true);
                 }
 
-                if (_hit.transform.TryGetComponent(out Entity ent))
+                Entity ent = _hit.transform.GetComponentInParent<Entity>();
+                IHealth hit = _hit.transform.GetComponent<IHealth>();
+
+                if (ent != null)
                 {
                     if (ent.entity.Faction == owner.entity.Faction)
                         return;
 
-                    ent.TakeDamage(gun.Damage, OwnerClientId);
+                    hit.TakeDamage(gun.Damage, OwnerClientId);
                 }
             }
         }

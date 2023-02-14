@@ -104,7 +104,7 @@ namespace Guns
             {
                 foreach (NetworkObject go in gun.HitObjects)
                 {
-                    NetworkObject spawn = Instantiate(go, _hit.point, shootPoint.rotation);
+                    NetworkObject spawn = Instantiate(go, _hit.point, Quaternion.FromToRotation(Vector3.zero, _hit.normal));
                     spawn.Spawn(true);
                 }
 

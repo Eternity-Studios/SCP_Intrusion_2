@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c6695c11c108c4b9d470f42ad741aa, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  Damage: 20
+  Damage: 18
   Ammo: 15
   Recoil: 0.7
   RecoilCooldown: 5
   CooldownDelay: 0.2
   Spread: 0.45
-  RPS: 6.5
+  RPS: 7
   RecoilPattern:
     serializedVersion: 2
     m_Curve:

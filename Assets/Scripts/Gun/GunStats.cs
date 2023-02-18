@@ -12,10 +12,10 @@ namespace Guns
         public float Recoil = 1f;
         public float RecoilCooldown = 1f;
         public float CooldownDelay = 0.2f;
-        public float Spread = 0.25f;
         public float RPS = 4f;
 
         public AnimationCurve RecoilPattern;
+        public AnimationCurve Spread;
 
         public LayerMask HitMask;
         public NetworkObject[] HitObjects;

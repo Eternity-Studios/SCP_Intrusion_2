@@ -1,6 +1,7 @@
 using Entities;
 using Player.Movement;
 using System;
+using UI;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,6 +28,8 @@ namespace Guns
 
         float timer;
         float shootFactor;
+        float shootFactorClamped;
+        float sp;
 
         private void Awake()
         {
@@ -40,9 +43,18 @@ namespace Guns
             timer -= Time.deltaTime;
 
             if (shootFactor > 0f && timer <= -gun.CooldownDelay)
+            {
                 shootFactor -= gun.RecoilCooldown * Time.deltaTime;
+                shootFactorClamped -= gun.RecoilCooldown * Time.deltaTime;
+            }
             else if (shootFactor < 0f)
+            {
                 shootFactor = 0f;
+                shootFactorClamped = 0f;
+            }
+
+            sp = gun.Spread.Evaluate(Mathf.InverseLerp(0f, gun.Ammo, shootFactorClamped));
+            Crosshair.Singleton.SetSize(sp * 10f);
 
             if (IsShooting)
                 Shoot();
@@ -83,19 +95,25 @@ namespace Guns
             Recoil();
 
             shootFactor = Mathf.Clamp(shootFactor + 1f, 0f, gun.Ammo);
+            shootFactorClamped = Mathf.Clamp(shootFactorClamped + 1f, 0f, gun.Ammo);
 
             if (shootFactor == gun.Ammo)
+            {
                 shootFactor = 0f;
+                shootFactorClamped = gun.Ammo;
+            }
         }
 
         public void Spread()
         {
-            shootPoint.localRotation = Quaternion.Euler(Random.Range(-gun.Spread, gun.Spread), Random.Range(-gun.Spread, gun.Spread), 0f);
+            sp = gun.Spread.Evaluate(Mathf.InverseLerp(0f, gun.Ammo, shootFactorClamped));
+
+            shootPoint.localRotation = Quaternion.Euler(Random.Range(-sp, sp), Random.Range(-sp, sp), 0f);
         }
 
         public void Recoil()
         {
-            PlayerLook.OwnedInstance.CamAdd(gun.Recoil, gun.RecoilPattern.Evaluate(shootFactor) * gun.Recoil);
+            PlayerLook.OwnedInstance.CamAdd(gun.Recoil, gun.RecoilPattern.Evaluate(Mathf.InverseLerp(0f, gun.Ammo, shootFactor)) * gun.Recoil);
         }
 
         [ServerRpc]

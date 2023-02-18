@@ -15,9 +15,8 @@ MonoBehaviour:
   Damage: 18
   Ammo: 15
   Recoil: 0.7
-  RecoilCooldown: 5
+  RecoilCooldown: 8
   CooldownDelay: 0.2
-  Spread: 0.45
   RPS: 7
   RecoilPattern:
     serializedVersion: 2
@@ -25,32 +24,56 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.14204487
-      outSlope: 0.14204487
+      inSlope: 9.366561
+      outSlope: 9.366561
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.45884684
+      outWeight: 0.09259259
     - serializedVersion: 3
-      time: 7
+      time: 0.5
       value: 0
-      inSlope: -0.3120884
-      outSlope: -0.3120884
+      inSlope: -6.551576
+      outSlope: -6.551576
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.12698404
+      inWeight: 0.085823596
       outWeight: 0.18176854
     - serializedVersion: 3
-      time: 15
+      time: 1
       value: 0
-      inSlope: 0.08392862
-      outSlope: 0.08392862
+      inSlope: 9.302917
+      outSlope: 9.302917
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.70444083
+      inWeight: 0.055555582
       outWeight: 0
     m_PreInfinity: 1
     m_PostInfinity: 1
+    m_RotationOrder: 4
+  Spread:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.25
+      inSlope: 6.367467
+      outSlope: 6.367467
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.109813996
+    - serializedVersion: 3
+      time: 1
+      value: 3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
     m_RotationOrder: 4
   HitMask:
     serializedVersion: 2

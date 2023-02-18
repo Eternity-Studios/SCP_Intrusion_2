@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 886166919132862558}
   m_Layer: 0
   m_Name: DebugAlly
-  m_TagString: Untagged
+  m_TagString: Targetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,12 +1,13 @@
-using Player.Movement;
 using Entities;
+using Player.Movement;
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
+using Utilities.Audio;
 using Random = UnityEngine.Random;
 
-namespace Guns 
+namespace Guns
 {
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
@@ -102,11 +103,7 @@ namespace Guns
         {
             if (Physics.Raycast(position, direction, out RaycastHit _hit, Mathf.Infinity, gun.HitMask, QueryTriggerInteraction.Ignore))
             {
-                foreach (NetworkObject go in gun.HitObjects)
-                {
-                    NetworkObject spawn = Instantiate(go, _hit.point, Quaternion.FromToRotation(Vector3.zero, _hit.normal));
-                    spawn.Spawn(true);
-                }
+                ServerEffects(_hit);
 
                 Entity ent = _hit.transform.GetComponentInParent<Entity>();
                 IHealth hit = _hit.transform.GetComponent<IHealth>();
@@ -119,6 +116,24 @@ namespace Guns
                     hit.TakeDamage(gun.Damage, OwnerClientId);
                 }
             }
+        }
+
+        public void ServerEffects(RaycastHit hit)
+        {
+            if (!IsServer)
+                return;
+
+            foreach (NetworkObject go in gun.HitObjects)
+            {
+                NetworkObject spawn = Instantiate(go, hit.point, Quaternion.FromToRotation(Vector3.zero, hit.normal));
+                spawn.Spawn(true);
+            }
+
+            if (gun.ShootSounds.Length > 0)
+                if (NetworkAudioManager.SoundToID.TryGetValue(gun.ShootSounds[Random.Range(0, gun.ShootSounds.Length)], out uint id))
+                {
+                    NetworkAudioManager.Singleton.PlaySoundClientRpc(id, transform.position, gun.Volume, gun.Priority);
+                }
         }
 
         public void ShootInput(InputAction.CallbackContext callbackContext)

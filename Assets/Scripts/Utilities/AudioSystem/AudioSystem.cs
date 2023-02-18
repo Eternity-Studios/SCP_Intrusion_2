@@ -24,11 +24,11 @@ namespace Utilities.Audio
             des.Timer = _sound.length + 0.1f;
             au.minDistance = 1.5f;
 
-            if (audioMixer == null)
+/*            if (audioMixer == null)
                 audioMixer = Resources.Load<AudioMixer>("AudioMixer").FindMatchingGroups("Master/Effects")[0];
 
             if (audioMixer != null)
-                au.outputAudioMixerGroup = audioMixer;
+                au.outputAudioMixerGroup = audioMixer;*/
 
             au.Play();
         }

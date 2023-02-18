@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,7 +9,8 @@ namespace Utilities.Audio
     {
         public static NetworkAudioManager Singleton;
 
-        public static Dictionary<string, AudioClip> Sounds;
+        public static Dictionary<uint, AudioClip> Sounds = new();
+        public static Dictionary<AudioClip, uint> SoundToID = new();
 
         private void Awake()
         {
@@ -19,9 +19,9 @@ namespace Utilities.Audio
         }
 
         [ClientRpc]
-        public void PlaySoundClientRpc(FixedString64Bytes id, Vector3 position, float volume, int priority) // 30 characters
+        public void PlaySoundClientRpc(uint id, Vector3 position, float volume, int priority)
         {
-            if (!Sounds.TryGetValue(id.ToString(), out AudioClip sound))
+            if (!Sounds.TryGetValue(id, out AudioClip sound))
                 return;
 
             AudioSystem.PlaySound(sound, position, volume, priority);

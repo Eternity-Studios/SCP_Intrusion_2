@@ -21,5 +21,11 @@ namespace Guns
         public NetworkObject[] HitObjects;
 
         public GameObject ViewModel;
+
+        public AudioClip[] ShootSounds;
+
+        public float Volume;
+
+        public int Priority;
     }
 }

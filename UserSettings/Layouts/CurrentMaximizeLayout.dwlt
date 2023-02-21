@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 104
+  controlID: 94
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 105
+  controlID: 95
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 106
+  controlID: 96
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -228,21 +228,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 5e65feffa86cfeffb471feff5c34ffff00fbffff247e0000747e0000087f00004c920000e8920000
+      m_ExpandedIDs: 8225ffff8439ffff00fbffff147b00006c7b0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Gameplay
-        m_OriginalName: Gameplay
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 32520
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 5}
       m_SearchString: 
@@ -539,9 +539,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 959.2286, y: 539.21924, z: -13.702303}
+    m_Target: {x: 966.67236, y: 542.8621, z: 58.81049}
     speed: 2
-    m_Value: {x: 959.2286, y: 539.21924, z: -13.702303}
+    m_Value: {x: 966.67236, y: 542.8621, z: 58.81049}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -588,13 +588,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.011688895, y: -0.0015031028, z: -0.000069450536, w: 0.999871}
+    m_Target: {x: -0.020670004, y: 0.043471377, z: 0.0008460828, w: 0.99877995}
     speed: 2
-    m_Value: {x: -0.01168959, y: -0.0015031924, z: -0.00006945467, w: 0.99993056}
+    m_Value: {x: -0.020671254, y: 0.043474004, z: 0.000846134, w: 0.99884033}
   m_Size:
-    m_Target: 12.254273
+    m_Target: 59.94219
     speed: 2
-    m_Value: 12.254273
+    m_Value: 59.94219
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -718,22 +718,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scriptables/Guns
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scriptables/Guns
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Brown\Unity\SCP Intrusion 2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 53}
-    m_SelectedIDs: 3c760000
-    m_LastClickedID: 30268
-    m_ExpandedIDs: 00000000e8670000f8670000fa67000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: fa670000
+    m_LastClickedID: 26618
+    m_ExpandedIDs: 00000000e8670000fc67000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

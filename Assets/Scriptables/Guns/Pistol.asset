@@ -16,7 +16,7 @@ MonoBehaviour:
   Ammo: 15
   Recoil: 0.7
   RecoilCooldown: 8
-  CooldownDelay: 0.2
+  CooldownDelay: 0
   RPS: 7
   RecoilPattern:
     serializedVersion: 2
@@ -57,20 +57,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.25
-      inSlope: 6.367467
-      outSlope: 6.367467
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.109813996
-    - serializedVersion: 3
-      time: 1
-      value: 3
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.22958434
+      value: 0.27532387
+      inSlope: 0.42291927
+      outSlope: 0.42291927
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 2
+      inSlope: 4.668102
+      outSlope: 4.668102
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07903436
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

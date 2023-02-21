@@ -20,7 +20,7 @@ namespace UI
 
         public void SetSize(float s)
         {
-            rect.sizeDelta = Vector2.SmoothDamp(rect.sizeDelta, new Vector2(s * 2f, s * 2f), ref vel, 0.1f);
+            rect.sizeDelta = Vector2.SmoothDamp(rect.sizeDelta, new Vector2(s * 2f, s * 2f), ref vel, 0.075f);
         }
     }
 }

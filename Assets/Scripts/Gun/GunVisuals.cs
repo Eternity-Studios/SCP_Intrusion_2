@@ -10,9 +10,12 @@ namespace Guns
 
         ParticleSystem particle;
 
+        Animator anim;
+
         private void Awake()
         {
             particle = GetComponentInChildren<ParticleSystem>();
+            anim = GetComponentInChildren<Animator>();
 
             gun = GetComponentInParent<Gun>();
         }
@@ -20,11 +23,26 @@ namespace Guns
         private void Start()
         {
             gun.onShoot += OnShoot;
+            gun.onReloadPerformed += OnReloadPerformed;
+            gun.onReloadFinished += OnReloadFinished;
         }
 
         public void OnShoot()
         {
             particle.Play();
+        }
+
+        public void OnReloadPerformed(bool performed)
+        {
+            if (!performed)
+                return;
+
+            anim.Play("StartReload");
+        }
+
+        public void OnReloadFinished(bool completed)
+        {
+            anim.Play("EndReload");
         }
     }
 }

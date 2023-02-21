@@ -13,6 +13,7 @@ namespace Guns
         public float RecoilCooldown = 1f;
         public float CooldownDelay = 0.2f;
         public float RPS = 4f;
+        public float ReloadTime = 1.5f;
 
         public AnimationCurve RecoilPattern;
         public AnimationCurve Spread;

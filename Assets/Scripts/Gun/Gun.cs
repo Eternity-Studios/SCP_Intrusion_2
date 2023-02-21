@@ -1,6 +1,8 @@
 using Entities;
 using Player.Movement;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UI;
 using Unity.Netcode;
 using UnityEngine;
@@ -23,6 +25,8 @@ namespace Guns
         Transform shootPoint;
 
         Entity owner;
+
+        Coroutine reloadOperation;
 
         bool IsShooting;
 
@@ -72,23 +76,22 @@ namespace Guns
             inputActions = new Game();
 
             inputActions.Player.Shoot.performed += ShootInput;
+            inputActions.Player.Reload.performed += ReloadInput;
             inputActions.Player.Shoot.canceled += ShootInput;
 
-            inputActions.Player.Shoot.Enable();
+            inputActions.Player.Enable();
 
             timer = 1f / gun.RPS;
         }
 
         public void Shoot()
         {
-            if (timer > 0f)
+            if (timer > 0f || currentAmmo.Value <= 0)
                 return;
 
             timer = 1f / gun.RPS;
 
             Spread();
-
-            OnShoot();
 
             ShootServerRpc(shootPoint.position, shootPoint.forward);
 
@@ -117,11 +120,20 @@ namespace Guns
         }
 
         [ServerRpc]
-        public void ShootServerRpc(Vector3 position, Vector3 direction)
+        public virtual void ShootServerRpc(Vector3 position, Vector3 direction)
         {
+            if (currentAmmo.Value <= 0)
+                return;
+
             if (Physics.Raycast(position, direction, out RaycastHit _hit, Mathf.Infinity, gun.HitMask, QueryTriggerInteraction.Ignore))
             {
                 ServerEffects(_hit);
+
+                ServerAmmo();
+
+                OnShoot();
+
+                OnShootClientRpc();
 
                 Entity ent = _hit.transform.GetComponentInParent<Entity>();
                 IHealth hit = _hit.transform.GetComponent<IHealth>();
@@ -134,6 +146,47 @@ namespace Guns
                     hit.TakeDamage(gun.Damage, OwnerClientId);
                 }
             }
+        }
+
+        [ServerRpc]
+        public void ReloadServerRpc()
+        {
+            if (currentAmmo.Value < gun.Ammo)
+            {
+                OnReloadPerformed(true);
+
+                OnReloadPerformedClientRpc(true);
+
+                reloadOperation = StartCoroutine(ServerReload());
+            }
+
+            OnReloadPerformed(false);
+
+            OnReloadPerformedClientRpc(false);
+        }
+
+        [ServerRpc]
+        public void ReloadInterruptServerRpc()
+        {
+            if (reloadOperation != null)
+            {
+                StopCoroutine(reloadOperation);
+
+                OnReloadFinished(false);
+
+                OnReloadFinishedClientRpc(false);
+            }
+        }
+
+        public void ServerAmmo(int amount = 1)
+        {
+            if (!IsServer)
+                return;
+
+            currentAmmo.Value -= amount;
+
+            if (currentAmmo.Value < 0)
+                currentAmmo.Value = 0;
         }
 
         public void ServerEffects(RaycastHit hit)
@@ -154,15 +207,75 @@ namespace Guns
                 }
         }
 
+        public IEnumerator ServerReload()
+        {
+            if (IsServer)
+            {
+                currentAmmo.Value = 0;
+
+                yield return new WaitForSeconds(gun.ReloadTime);
+
+                currentAmmo.Value = gun.Ammo;
+
+                OnReloadFinished(true);
+
+                OnReloadFinishedClientRpc(true);
+            }
+        }
+
         public void ShootInput(InputAction.CallbackContext callbackContext)
         {
+            if (!IsClient)
+                return;
+
             if (callbackContext.performed)
                 IsShooting = true;
             else if (callbackContext.canceled)
                 IsShooting = false;
         }
 
+        public void ReloadInput(InputAction.CallbackContext callbackContext)
+        {
+            if (!IsClient)
+                return;
+
+            ReloadServerRpc();
+        }
+
         public event Action onShoot;
         public void OnShoot() { onShoot?.Invoke(); }
+
+        [ClientRpc]
+        public void OnShootClientRpc()
+        {
+            if (!IsClient)
+                return;
+
+            OnShoot();
+        }
+
+        public event Action<bool> onReloadPerformed;
+        public void OnReloadPerformed(bool performed) { onReloadPerformed?.Invoke(performed); }
+
+        [ClientRpc]
+        public void OnReloadPerformedClientRpc(bool performed)
+        {
+            if (!IsClient)
+                return;
+
+            OnReloadPerformed(performed);
+        }
+
+        public event Action<bool> onReloadFinished;
+        public void OnReloadFinished(bool completed) { onReloadFinished?.Invoke(completed); }
+
+        [ClientRpc]
+        public void OnReloadFinishedClientRpc(bool completed)
+        {
+            if (!IsClient)
+                return;
+
+            OnReloadFinished(completed);
+        }
     }
 }

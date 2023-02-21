@@ -22,7 +22,11 @@ namespace Guns
 
         private void Start()
         {
-            gun.onShoot += OnShoot;
+            if (!gun.IsOwner)
+                gun.onShoot += OnShoot;
+            else
+                gun.onShootLocal += OnShoot;
+
             gun.onReloadPerformed += OnReloadPerformed;
             gun.onReloadFinished += OnReloadFinished;
         }

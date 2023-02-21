@@ -95,6 +95,8 @@ namespace Guns
 
             ShootServerRpc(shootPoint.position, shootPoint.forward);
 
+            OnShootLocal();
+
             Recoil();
 
             shootFactor = Mathf.Clamp(shootFactor + 1f, 0f, gun.Ammo);
@@ -203,7 +205,7 @@ namespace Guns
             if (gun.ShootSounds.Length > 0)
                 if (NetworkAudioManager.SoundToID.TryGetValue(gun.ShootSounds[Random.Range(0, gun.ShootSounds.Length)], out uint id))
                 {
-                    NetworkAudioManager.Singleton.PlaySoundClientRpc(id, transform.position, gun.Volume, gun.Priority);
+                    NetworkAudioManager.Singleton.PlaySoundClientRpc(id, transform.position, gun.Volume, gun.Priority, IsOwner);
                 }
         }
 
@@ -241,6 +243,9 @@ namespace Guns
 
             ReloadServerRpc();
         }
+
+        public event Action onShootLocal;
+        public void OnShootLocal() { onShootLocal?.Invoke(); }
 
         public event Action onShoot;
         public void OnShoot() { onShoot?.Invoke(); }

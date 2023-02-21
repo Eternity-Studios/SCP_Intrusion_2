@@ -19,12 +19,13 @@ namespace Utilities.Audio
         }
 
         [ClientRpc]
-        public void PlaySoundClientRpc(uint id, Vector3 position, float volume, int priority)
+        public void PlaySoundClientRpc(uint id, Vector3 position, float volume, int priority, bool isOwner)
         {
             if (!Sounds.TryGetValue(id, out AudioClip sound))
                 return;
 
-            AudioSystem.PlaySound(sound, position, volume, priority);
+            if (!isOwner)
+                AudioSystem.PlaySound(sound, position, volume, priority);
         }
     }
 }

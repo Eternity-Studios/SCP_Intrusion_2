@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using Utilities.Gameplay;
 
 namespace Guns
 {
@@ -19,7 +20,7 @@ namespace Guns
         public AnimationCurve Spread;
 
         public LayerMask HitMask;
-        public NetworkObject[] HitObjects;
+        public DestroyAfter[] HitObjects;
 
         public GameObject ViewModel;
 

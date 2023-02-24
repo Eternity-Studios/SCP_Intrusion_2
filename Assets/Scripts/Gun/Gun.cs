@@ -2,12 +2,13 @@ using Entities;
 using Player.Movement;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UI;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities.Audio;
+using Utilities.Gameplay;
+using Utilities.Networking;
 using Random = UnityEngine.Random;
 
 namespace Guns
@@ -196,11 +197,9 @@ namespace Guns
             if (!IsServer)
                 return;
 
-            foreach (NetworkObject go in gun.HitObjects)
-            {
-                NetworkObject spawn = Instantiate(go, hit.point, Quaternion.FromToRotation(Vector3.zero, hit.normal));
-                spawn.Spawn(true);
-            }
+            if (gun.HitObjects.Length > 0)
+                foreach (DestroyAfter go in gun.HitObjects)
+                    NetworkSpawnEffectObject.Singleton.Spawn(go, hit.point, Quaternion.FromToRotation(Vector3.zero, hit.normal));
 
             if (gun.ShootSounds.Length > 0)
                 if (NetworkAudioManager.SoundToID.TryGetValue(gun.ShootSounds[Random.Range(0, gun.ShootSounds.Length)], out uint id))

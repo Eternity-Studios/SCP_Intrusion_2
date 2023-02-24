@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   DeathObjects:
-  - {fileID: 3070866059349966950, guid: 3478487d7c935d34885d2f3b8826b6a9, type: 3}
+  - {fileID: 6997485722629429457, guid: 3478487d7c935d34885d2f3b8826b6a9, type: 3}
   Faction: 1

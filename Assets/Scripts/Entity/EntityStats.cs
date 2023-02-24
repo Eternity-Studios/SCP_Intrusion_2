@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utilities.Gameplay;
 
 namespace Entities
 {
@@ -7,7 +8,7 @@ namespace Entities
     {
         public int Health;
 
-        public GameObject[] DeathObjects;
+        public DestroyAfter[] DeathObjects;
 
         public Factions Faction;
     }

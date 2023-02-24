@@ -1,6 +1,8 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using Utilities.Gameplay;
+using Utilities.Networking;
 
 namespace Entities
 {
@@ -42,11 +44,9 @@ namespace Entities
             if (!IsServer)
                 return;
 
-            foreach (GameObject go in entity.DeathObjects)
-            {
-                NetworkObject spawn = Instantiate(go, transform.position, transform.rotation).GetComponent<NetworkObject>();
-                spawn.Spawn(true);
-            }
+            if (entity.DeathObjects.Length > 0)
+                foreach (DestroyAfter go in entity.DeathObjects)
+                    NetworkSpawnEffectObject.Singleton.Spawn(go, transform.position, transform.rotation);
 
             OnDeath(attackerId);
 

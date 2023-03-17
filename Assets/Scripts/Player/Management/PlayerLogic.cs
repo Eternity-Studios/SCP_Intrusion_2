@@ -1,3 +1,5 @@
+using Guns;
+using Player.Movement;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -7,11 +9,21 @@ namespace Player.Management
     [DisallowMultipleComponent]
     public class PlayerLogic : NetworkBehaviour
     {
+        [HideInInspector]
+        public NetworkObject WorldPlayer;
+
+        [HideInInspector]
+        public ReferenceHub referenceHub;
+
         [SerializeField]
         GameObject playerObject;
 
         public override void OnNetworkSpawn()
         {
+            referenceHub = GetComponent<ReferenceHub>();
+
+            referenceHub.logic = this;
+
             Invoke(nameof(SpawnPlayer), 0.5f);
         }
 
@@ -28,7 +40,13 @@ namespace Player.Management
             Debug.Log("Spawn Player! Client ID: " + OwnerClientId);
 
             GameObject p = Instantiate(playerObject, sp.position, Quaternion.identity);
-            p.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId, true);
+            NetworkObject n = p.GetComponent<NetworkObject>();
+            n.SpawnWithOwnership(OwnerClientId, true);
+            WorldPlayer = n;
+
+            referenceHub.look = p.GetComponent<PlayerLook>();
+            referenceHub.movement = p.GetComponent<PlayerMovement>();
+            referenceHub.weapon = p.GetComponent<Gun>();
         }
 
         private void SpawnPlayer()

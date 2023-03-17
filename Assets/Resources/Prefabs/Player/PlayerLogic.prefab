@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7674946197788289600}
   - component: {fileID: 5162060222085485251}
   - component: {fileID: 6093961046758927094}
+  - component: {fileID: 4062848475790794778}
   m_Layer: 0
   m_Name: PlayerLogic
   m_TagString: Untagged
@@ -45,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b106dafdab23b149ae07a7c7ae14f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WorldPlayer: {fileID: 0}
+  referenceHub: {fileID: 0}
   playerObject: {fileID: 1237343986794030291, guid: dd215640dcba6be48bcdea1b255c789d,
     type: 3}
 --- !u!114 &6093961046758927094
@@ -63,3 +66,19 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &4062848475790794778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674946197788289601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c0afc702cb0514ab134cd314585dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  movement: {fileID: 0}
+  look: {fileID: 0}
+  logic: {fileID: 0}

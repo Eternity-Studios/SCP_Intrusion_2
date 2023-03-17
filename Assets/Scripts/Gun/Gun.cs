@@ -2,6 +2,7 @@ using Entities;
 using Player.Movement;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UI;
 using Unity.Netcode;
 using UnityEngine;
@@ -63,6 +64,40 @@ namespace Guns
 
             if (IsShooting)
                 Shoot();
+        }
+
+        public void ServerSwitchWeapon(GunStats g)
+        {
+            gun = g;
+        }
+
+        public void ServerResetWeapon()
+        {
+            if (!IsServer)
+                return;
+
+            StopCoroutine(reloadOperation);
+
+            currentAmmo.Value = gun.Ammo;
+
+            ResetWeaponClientRpc();
+        }
+
+        [ClientRpc]
+        public void SwitchWeaponClientRpc()
+        {
+
+        }
+
+        [ClientRpc]
+        public void ResetWeaponClientRpc()
+        {
+            timer = 0f;
+            shootFactor = 0f;
+            shootFactorClamped = 0f;
+            sp = 0f;
+
+            IsShooting = false;
         }
 
         public override void OnNetworkSpawn()

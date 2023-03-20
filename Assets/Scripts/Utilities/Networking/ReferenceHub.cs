@@ -1,15 +1,21 @@
 using Guns;
+using Player.Interact;
 using Player.Management;
 using Player.Movement;
 using UnityEngine;
 
-public class ReferenceHub : MonoBehaviour
+namespace Player 
 {
-    public Gun weapon;
+    public class ReferenceHub : MonoBehaviour
+    {
+        public Gun weapon;
 
-    public PlayerMovement movement;
+        public PlayerMovement movement;
 
-    public PlayerLook look;
+        public PlayerLook look;
 
-    public PlayerLogic logic;
+        public PlayerLogic logic;
+
+        public PlayerInteract interact;
+    }
 }

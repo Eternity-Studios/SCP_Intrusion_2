@@ -1,4 +1,5 @@
 using Entities;
+using Player;
 using Player.Movement;
 using System;
 using System.Collections;
@@ -16,11 +17,13 @@ namespace Guns
 {
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
-    public class Gun : NetworkBehaviour
+    public class Gun : NetworkBehaviour, IReferenceHub
     {
         public GunStats gun;
 
         readonly NetworkVariable<int> currentAmmo = new(0);
+
+        ReferenceHub referenceHub;
 
         Game inputActions;
 
@@ -68,7 +71,14 @@ namespace Guns
 
         public void ServerSwitchWeapon(GunStats g)
         {
+            if (!IsServer)
+                return;
+
             gun = g;
+
+            SwitchWeaponClientRpc(NetworkWeaponLoader.WeaponToID[g]);
+
+            ServerResetWeapon();
         }
 
         public void ServerResetWeapon()
@@ -84,9 +94,9 @@ namespace Guns
         }
 
         [ClientRpc]
-        public void SwitchWeaponClientRpc()
+        public void SwitchWeaponClientRpc(uint gunID)
         {
-
+            gun = NetworkWeaponLoader.IDToWeapon[gunID];
         }
 
         [ClientRpc]
@@ -276,6 +286,13 @@ namespace Guns
                 return;
 
             ReloadServerRpc();
+        }
+
+        public void AssignReferenceHub(ReferenceHub hub)
+        {
+            referenceHub = hub;
+
+            referenceHub.weapon = this;
         }
 
         public event Action onShootLocal;

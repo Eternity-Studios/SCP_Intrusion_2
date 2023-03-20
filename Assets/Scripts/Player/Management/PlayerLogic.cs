@@ -1,4 +1,5 @@
 using Guns;
+using Player.Interact;
 using Player.Movement;
 using Unity.Netcode;
 using UnityEngine;
@@ -44,9 +45,12 @@ namespace Player.Management
             n.SpawnWithOwnership(OwnerClientId, true);
             WorldPlayer = n;
 
-            referenceHub.look = p.GetComponent<PlayerLook>();
-            referenceHub.movement = p.GetComponent<PlayerMovement>();
-            referenceHub.weapon = p.GetComponent<Gun>();
+            IReferenceHub[] i = p.GetComponentsInChildren<IReferenceHub>();
+
+            foreach (IReferenceHub _i in i)
+            {
+                _i.AssignReferenceHub(referenceHub);
+            }
         }
 
         private void SpawnPlayer()

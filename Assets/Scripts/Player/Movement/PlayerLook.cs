@@ -6,7 +6,7 @@ namespace Player.Movement
 {
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
-    public class PlayerLook : NetworkBehaviour
+    public class PlayerLook : NetworkBehaviour, IReferenceHub
     {
         public static PlayerLook OwnedInstance;
 
@@ -17,6 +17,8 @@ namespace Player.Movement
 
         [HideInInspector]
         public Vector2 LookInput;
+
+        ReferenceHub referenceHub;
 
         Vector2 rot;
 
@@ -97,6 +99,13 @@ namespace Player.Movement
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
+        }
+
+        public void AssignReferenceHub(ReferenceHub hub)
+        {
+            referenceHub = hub;
+
+            referenceHub.look = this;
         }
     }
 }

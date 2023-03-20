@@ -7,7 +7,7 @@ namespace Player.Movement
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
-    public class PlayerMovement : NetworkBehaviour
+    public class PlayerMovement : NetworkBehaviour, IReferenceHub
     {
         public float Speed = 5f;
         public float JumpSpeed = 1f;
@@ -17,6 +17,8 @@ namespace Player.Movement
 
         [HideInInspector]
         public Vector2 MovementInput;
+
+        ReferenceHub referenceHub;
 
         CharacterController controller;
 
@@ -94,6 +96,13 @@ namespace Player.Movement
         public void Jump()
         {
             grav = JumpSpeed;
+        }
+
+        public void AssignReferenceHub(ReferenceHub hub)
+        {
+            referenceHub = hub;
+
+            referenceHub.movement = this;
         }
     }
 }

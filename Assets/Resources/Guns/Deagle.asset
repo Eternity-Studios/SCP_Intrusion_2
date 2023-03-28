@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05c6695c11c108c4b9d470f42ad741aa, type: 3}
-  m_Name: Pistol
+  m_Name: Deagle
   m_EditorClassIdentifier: 
-  Damage: 18
-  Ammo: 15
-  Recoil: 0.7
+  Damage: 45
+  Ammo: 7
+  Recoil: 1.2
   RecoilCooldown: 8
   CooldownDelay: 0
-  RPS: 7
+  RPS: 3
   ReloadTime: 1.5
   RecoilPattern:
     serializedVersion: 2
@@ -32,8 +32,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.09259259
     - serializedVersion: 3
-      time: 0.5
-      value: 0
+      time: 0.059910715
+      value: 0.8837491
       inSlope: -6.551576
       outSlope: -6.551576
       tangentMode: 0
@@ -41,13 +41,31 @@ MonoBehaviour:
       inWeight: 0.085823596
       outWeight: 0.18176854
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 9.302917
-      outSlope: 9.302917
+      time: 0.19121486
+      value: -1.4267112
+      inSlope: 1.1307658
+      outSlope: 1.1307658
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.055555582
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3200045
+      value: -0.015304923
+      inSlope: 9.505298
+      outSlope: 9.505298
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.059296887
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.3064458
+      outSlope: -3.3064458
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15631698
       outWeight: 0
     m_PreInfinity: 1
     m_PostInfinity: 1
@@ -58,20 +76,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.4
-      inSlope: 0
-      outSlope: 0
+      inSlope: 4.79276
+      outSlope: 4.79276
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.038580246
     - serializedVersion: 3
       time: 1
       value: 2
-      inSlope: -0.03703128
-      outSlope: -0.03703128
+      inSlope: 0.03745411
+      outSlope: 0.03745411
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.57889223
+      inWeight: 0.7052469
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

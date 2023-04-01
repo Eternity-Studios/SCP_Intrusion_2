@@ -10,7 +10,11 @@ namespace Player.Interact
     {
         public static PlayerInteract OwnedInstance;
 
-        ReferenceHub referenceHub;
+        public float Distance;
+
+        public LayerMask PickupLayer;
+
+        private ReferenceHub referenceHub;
 
         Game inputActions;
 
@@ -38,7 +42,13 @@ namespace Player.Interact
         [ServerRpc]
         public void InteractServerRpc()
         {
-            
+            if (Physics.Raycast(referenceHub.look.camTransform.position, referenceHub.look.camTransform.forward, out RaycastHit _hit, Distance, PickupLayer))
+            {
+                if (_hit.transform.TryGetComponent(out IInteractable interactable))
+                {
+                    interactable.Interact(referenceHub.logic);
+                }
+            }
         }
 
         public void AssignReferenceHub(ReferenceHub hub)

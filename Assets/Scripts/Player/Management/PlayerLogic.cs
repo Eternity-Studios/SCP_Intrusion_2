@@ -3,12 +3,12 @@ using Player.Interact;
 using Player.Movement;
 using Unity.Netcode;
 using UnityEngine;
+using Utilities.Networking;
+using Utilities.Player;
+
 
 namespace Player.Management
 {
-    using Utilities.Networking;
-    using Utilities.Player;
-
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
     public class PlayerLogic : NetworkBehaviour

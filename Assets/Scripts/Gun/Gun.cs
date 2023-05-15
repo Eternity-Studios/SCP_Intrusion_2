@@ -9,12 +9,11 @@ using UnityEngine.InputSystem;
 using Utilities.Audio;
 using Utilities.Gameplay;
 using Utilities.Networking;
+using Utilities.Player;
 using Random = UnityEngine.Random;
 
 namespace Guns
 {
-    using Utilities.Player;
-
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
     public class Gun : ReferenceHubModule

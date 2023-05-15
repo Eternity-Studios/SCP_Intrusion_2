@@ -6,6 +6,9 @@ namespace AI
 {
     public class AIMelee : AIAddon
     {
-
+        private void FixedUpdate()
+        {
+            
+        }
     }
 }

@@ -1,12 +1,11 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities.Networking;
+using Utilities.Player;
 
 namespace Player.Interact
 {
-    using Utilities.Networking;
-    using Utilities.Player;
-
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
     public class PlayerInteract : ReferenceHubModule

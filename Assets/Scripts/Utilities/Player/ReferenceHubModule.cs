@@ -1,9 +1,9 @@
+using Unity.Netcode;
+using UnityEngine;
+using Utilities.Networking;
+
 namespace Utilities.Player
 {
-    using Unity.Netcode;
-    using UnityEngine;
-    using Utilities.Networking;
-
     [RequireComponent(typeof(ReferenceHub))]
     public abstract class ReferenceHubModule : NetworkBehaviour
     {

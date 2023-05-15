@@ -7,6 +7,9 @@ namespace AI
 {
     public class AIBase : NetworkBehaviour
     {
+        [HideInInspector]
+        public bool IsStopped;
+
         NavMeshAgent agent;
 
         Entity owner;
@@ -25,6 +28,8 @@ namespace AI
 
             if (target != null)
                 agent.SetDestination(target.transform.position);
+
+            IsStopped = agent.isStopped;
         }
 
         private void OnTriggerEnter(Collider other)

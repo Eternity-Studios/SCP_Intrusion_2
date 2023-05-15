@@ -1,12 +1,11 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities.Networking;
+using Utilities.Player;
 
 namespace Player.Movement
 {
-    using Utilities.Networking;
-    using Utilities.Player;
-
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]

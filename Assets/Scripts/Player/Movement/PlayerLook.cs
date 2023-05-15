@@ -1,12 +1,12 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities.Networking;
+using Utilities.Player;
+
 
 namespace Player.Movement
 {
-    using Utilities.Networking;
-    using Utilities.Player;
-
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
     public class PlayerLook : ReferenceHubModule

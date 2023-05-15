@@ -5,5 +5,7 @@ Also used URP for better performance.
 << Content >>
 
 The Scarlet King has invaded our reality. 
-Players play as Weaponsized Class-V .aics built by the SCP Foundation
+
+Players play as Weaponsized Class-V .aics built by the SCP Foundation. 
+
 Save Humanity. Save This Reality. 

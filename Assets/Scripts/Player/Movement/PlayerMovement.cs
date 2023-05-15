@@ -4,10 +4,13 @@ using UnityEngine.InputSystem;
 
 namespace Player.Movement
 {
+    using Utilities.Networking;
+    using Utilities.Player;
+
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
-    public class PlayerMovement : NetworkBehaviour, IReferenceHub
+    public class PlayerMovement : ReferenceHubModule
     {
         public float Speed = 5f;
         public float JumpSpeed = 1f;
@@ -17,8 +20,6 @@ namespace Player.Movement
 
         [HideInInspector]
         public Vector2 MovementInput;
-
-        ReferenceHub referenceHub;
 
         CharacterController controller;
 
@@ -98,11 +99,10 @@ namespace Player.Movement
             grav = JumpSpeed;
         }
 
-        public void AssignReferenceHub(ReferenceHub hub)
+        public override void AssignReferenceHub(ReferenceHub hub)
         {
-            referenceHub = hub;
-
-            referenceHub.movement = this;
+            base.AssignReferenceHub(hub);
+            ReferenceHub.movement = this;
         }
     }
 }

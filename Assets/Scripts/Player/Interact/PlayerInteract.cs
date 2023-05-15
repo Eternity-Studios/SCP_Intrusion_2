@@ -4,17 +4,18 @@ using UnityEngine.InputSystem;
 
 namespace Player.Interact
 {
+    using Utilities.Networking;
+    using Utilities.Player;
+
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
-    public class PlayerInteract : NetworkBehaviour, IReferenceHub
+    public class PlayerInteract : ReferenceHubModule
     {
         public static PlayerInteract OwnedInstance;
 
         public float Distance;
 
         public LayerMask PickupLayer;
-
-        private ReferenceHub referenceHub;
 
         Game inputActions;
 
@@ -42,20 +43,19 @@ namespace Player.Interact
         [ServerRpc]
         public void InteractServerRpc()
         {
-            if (Physics.Raycast(referenceHub.look.camTransform.position, referenceHub.look.camTransform.forward, out RaycastHit _hit, Distance, PickupLayer))
+            if (Physics.Raycast(ReferenceHub.look.camTransform.position, ReferenceHub.look.camTransform.forward, out RaycastHit _hit, Distance, PickupLayer))
             {
                 if (_hit.transform.TryGetComponent(out IInteractable interactable))
                 {
-                    interactable.Interact(referenceHub.logic);
+                    interactable.Interact(ReferenceHub.logic);
                 }
             }
         }
 
         public void AssignReferenceHub(ReferenceHub hub)
         {
-            referenceHub = hub;
-
-            referenceHub.interact = this;
+            base.AssignReferenceHub(hub);
+            ReferenceHub.interact = this;
         }
     }
 }

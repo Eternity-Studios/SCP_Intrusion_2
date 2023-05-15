@@ -4,9 +4,12 @@ using UnityEngine.InputSystem;
 
 namespace Player.Movement
 {
+    using Utilities.Networking;
+    using Utilities.Player;
+
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
-    public class PlayerLook : NetworkBehaviour, IReferenceHub
+    public class PlayerLook : ReferenceHubModule
     {
         public static PlayerLook OwnedInstance;
 
@@ -17,8 +20,6 @@ namespace Player.Movement
 
         [HideInInspector]
         public Vector2 LookInput;
-
-        ReferenceHub referenceHub;
 
         Vector2 rot;
 
@@ -103,9 +104,8 @@ namespace Player.Movement
 
         public void AssignReferenceHub(ReferenceHub hub)
         {
-            referenceHub = hub;
-
-            referenceHub.look = this;
+            base.AssignReferenceHub(hub);
+            ReferenceHub.look = this;
         }
     }
 }

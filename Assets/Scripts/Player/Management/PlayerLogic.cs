@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Player.Management
 {
+    using Utilities.Networking;
+    using Utilities.Player;
+
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
     public class PlayerLogic : NetworkBehaviour
@@ -45,9 +48,9 @@ namespace Player.Management
             n.SpawnWithOwnership(OwnerClientId, true);
             WorldPlayer = n;
 
-            IReferenceHub[] i = p.GetComponentsInChildren<IReferenceHub>();
+            ReferenceHubModule[] i = p.GetComponentsInChildren<ReferenceHubModule>();
 
-            foreach (IReferenceHub _i in i)
+            foreach (ReferenceHubModule _i in i)
             {
                 _i.AssignReferenceHub(referenceHub);
             }

@@ -1,11 +1,11 @@
-using Guns;
-using Player.Interact;
-using Player.Management;
-using Player.Movement;
-using UnityEngine;
-
-namespace Player 
+namespace Utilities.Networking 
 {
+    using global::Player.Interact;
+    using global::Player.Management;
+    using global::Player.Movement;
+    using Guns;
+    using UnityEngine;
+
     public class ReferenceHub : MonoBehaviour
     {
         public Gun weapon;

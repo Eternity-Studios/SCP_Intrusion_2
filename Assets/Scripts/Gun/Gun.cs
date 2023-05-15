@@ -1,9 +1,7 @@
 using Entities;
-using Player;
 using Player.Movement;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UI;
 using Unity.Netcode;
 using UnityEngine;
@@ -15,15 +13,15 @@ using Random = UnityEngine.Random;
 
 namespace Guns
 {
+    using Utilities.Player;
+
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
-    public class Gun : NetworkBehaviour, IReferenceHub
+    public class Gun : ReferenceHubModule
     {
         public GunStats gun;
 
         readonly NetworkVariable<int> currentAmmo = new(0);
-
-        ReferenceHub referenceHub;
 
         Game inputActions;
 
@@ -288,11 +286,10 @@ namespace Guns
             ReloadServerRpc();
         }
 
-        public void AssignReferenceHub(ReferenceHub hub)
+        public override void AssignReferenceHub(ReferenceHub hub)
         {
-            referenceHub = hub;
-
-            referenceHub.weapon = this;
+            base.AssignReferenceHub(hub);
+            ReferenceHub.weapon = this;
         }
 
         public event Action onShootLocal;

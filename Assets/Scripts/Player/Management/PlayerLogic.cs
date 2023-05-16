@@ -1,6 +1,3 @@
-using Guns;
-using Player.Interact;
-using Player.Movement;
 using Unity.Netcode;
 using UnityEngine;
 using Utilities.Networking;
@@ -48,12 +45,7 @@ namespace Player.Management
             n.SpawnWithOwnership(OwnerClientId, true);
             WorldPlayer = n;
 
-            ReferenceHubModule[] i = p.GetComponentsInChildren<ReferenceHubModule>();
-
-            foreach (ReferenceHubModule _i in i)
-            {
-                _i.AssignReferenceHub(referenceHub);
-            }
+            p.GetComponent<PlayerController>().InitWithReferenceHub(referenceHub);
         }
 
         private void SpawnPlayer()

@@ -1,7 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utilities.Networking;
 using Utilities.Player;
 
 namespace Player.Movement
@@ -98,9 +97,9 @@ namespace Player.Movement
             grav = JumpSpeed;
         }
 
-        public override void AssignReferenceHub(ReferenceHub hub)
+        public override void AssignController(PlayerController controller)
         {
-            base.AssignReferenceHub(hub);
+            base.AssignController(controller);
             ReferenceHub.movement = this;
         }
     }

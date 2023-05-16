@@ -102,9 +102,9 @@ namespace Player.Movement
             }
         }
 
-        public void AssignReferenceHub(ReferenceHub hub)
+        public override void AssignController(PlayerController controller)
         {
-            base.AssignReferenceHub(hub);
+            base.AssignController(controller);
             ReferenceHub.look = this;
         }
     }

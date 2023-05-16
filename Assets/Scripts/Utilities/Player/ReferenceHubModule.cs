@@ -4,14 +4,15 @@ using Utilities.Networking;
 
 namespace Utilities.Player
 {
-    [RequireComponent(typeof(ReferenceHub))]
+    [RequireComponent(typeof(PlayerController))]
     public abstract class ReferenceHubModule : NetworkBehaviour
     {
-        public ReferenceHub ReferenceHub { get; private set; }
+        public ReferenceHub ReferenceHub => PlayerController.ReferenceHub;
+        public PlayerController PlayerController { get; private set; }
 
-        public virtual void AssignReferenceHub(ReferenceHub hub)
+        public virtual void AssignController(PlayerController controller)
         {
-            ReferenceHub = hub;
+            PlayerController = controller;
         }
     }
 }

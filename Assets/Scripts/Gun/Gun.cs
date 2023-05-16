@@ -285,9 +285,9 @@ namespace Guns
             ReloadServerRpc();
         }
 
-        public override void AssignReferenceHub(ReferenceHub hub)
+        public override void AssignController(PlayerController controller)
         {
-            base.AssignReferenceHub(hub);
+            base.AssignController(controller);
             ReferenceHub.weapon = this;
         }
 

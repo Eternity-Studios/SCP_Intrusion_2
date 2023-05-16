@@ -5,9 +5,12 @@ namespace Utilities.Networking
     using global::Player.Movement;
     using Guns;
     using UnityEngine;
+    using Utilities.Player;
 
     public class ReferenceHub : MonoBehaviour
     {
+        public PlayerController controller;
+
         public Gun weapon;
 
         public PlayerMovement movement;

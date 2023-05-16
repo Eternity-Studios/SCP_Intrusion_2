@@ -30,7 +30,7 @@ namespace Utilities.Networking
 
         private void Start()
         {
-            NetworkObject[] a = Resources.LoadAll<NetworkObject>("");
+            NetworkObject[] a = Resources.LoadAll<NetworkObject>(""); // TODO:
 
             if (a.Length < 1)
                 return;

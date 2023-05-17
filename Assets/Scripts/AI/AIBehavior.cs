@@ -16,6 +16,7 @@ namespace AI
         {
             if (!IsServer)
                 return;
+
             var target = AI.CurrentTarget;
             if (target is not null) // is null is up to 400x faster than == null cause unity; in this case it doesn't matter since we return null ourselves if not found
             {

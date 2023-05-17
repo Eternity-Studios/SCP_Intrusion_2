@@ -13,12 +13,10 @@ namespace Entities
         public EntityStats entity;
 
         readonly NetworkVariable<int> currentHealth = new(0);
-        readonly NetworkVariable<bool> isDead = new(false);
 
         public override void OnNetworkSpawn()
         {
-            if (IsClient)
-                isDead.OnValueChanged += CheckDeath;
+            Debug.Log("Spawned Object: " + gameObject.name + ", currentHealth: " + currentHealth);
 
             if (IsServer)
                 currentHealth.Value = entity.Health;
@@ -51,15 +49,8 @@ namespace Entities
             OnDeath(attackerId);
 
             Debug.Log("Destroying " + gameObject.name + "; IsServer: " + IsServer);
-            isDead.Value = true;
 
             NetworkObject.Despawn(true);
-        }
-
-        private void CheckDeath(bool prev, bool curr)
-        {
-            if (curr)
-                Destroy(gameObject);
         }
 
         public event Action<ulong, int> onDamage;

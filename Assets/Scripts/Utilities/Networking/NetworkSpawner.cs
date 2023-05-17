@@ -25,19 +25,19 @@ namespace Utilities.Networking
             timer = MaxTimer;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (!IsServer)
                 return;
 
-            timer -= Time.deltaTime;
+            timer -= Time.fixedDeltaTime;
 
             if (timer <= 0f)
             {
                 timer = MaxTimer;
 
                 NetworkObject no = Instantiate(Spawnee, transform.position, transform.rotation);
-                no.Spawn();
+                no.Spawn(true);
 
                 if (OneTime)
                     enabled = false;

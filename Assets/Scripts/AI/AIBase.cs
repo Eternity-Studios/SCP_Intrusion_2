@@ -5,31 +5,41 @@ using UnityEngine.AI;
 
 namespace AI
 {
+    using System.Collections.Generic;
+
     public class AIBase : NetworkBehaviour
     {
+        public bool IsStopped => agent.isStopped;
+        public AIBehavior CurrentBehavior;
         [HideInInspector]
-        public bool IsStopped;
-
-        NavMeshAgent agent;
+        public NavMeshAgent agent;
 
         Entity owner;
-        Entity target;
+        private Entity _currentTarget;
+        public Entity CurrentTarget
+        {
+            get => _currentTarget ??= targets.Count > 0 ? _currentTarget = targets[0] : null;
+            set
+            {
+                if (!targets.Contains(value))
+                    targets.Add(value);
+                _currentTarget = value;
+            }
+        }
+        [HideInInspector]
+        public List<Entity> targets = new List<Entity>();
 
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             owner = GetComponent<Entity>();
+            CurrentBehavior ??= gameObject.AddComponent<IdleBehavior>();
         }
 
         private void FixedUpdate()
         {
             if (!IsServer)
                 return;
-
-            if (target != null)
-                agent.SetDestination(target.transform.position);
-
-            IsStopped = agent.isStopped;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -37,9 +47,10 @@ namespace AI
             if (!IsServer)
                 return;
 
-            if (target == null && other.CompareTag("Targetable") && other.TryGetComponent(out Entity ent) && ent.entity.Faction != owner.entity.Faction)
+            if (other.CompareTag("Targetable") && other.TryGetComponent(out Entity ent) && ent.entity.Faction != owner.entity.Faction)
             {
-                target = ent;
+                targets.Add(ent);
+                CurrentBehavior.OnTargetAdded(ent);
             }
         }
     }

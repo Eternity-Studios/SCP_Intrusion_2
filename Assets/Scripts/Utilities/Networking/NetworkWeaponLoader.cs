@@ -8,8 +8,8 @@ namespace Utilities.Networking
     {
         public static NetworkWeaponLoader Singleton;
 
-        public static Dictionary<uint, GunStats> IDToWeapon;
-        public static Dictionary<GunStats, uint> WeaponToID;
+        public static Dictionary<uint, GunStats> IDToWeapon = new Dictionary<uint, GunStats>();
+        public static Dictionary<GunStats, uint> WeaponToID = new Dictionary<GunStats, uint>();
 
         private void Awake()
         {

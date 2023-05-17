@@ -37,16 +37,11 @@ namespace Guns
         float shootFactorClamped;
         float sp;
 
-        private void Awake()
-        {
-            TryGetComponent(out owner);
-        }
-
-        private void Update()
+        private void FixedUpdate()
         {
             if (!IsOwner) return;
 
-            timer -= Time.deltaTime;
+            timer -= Time.fixedDeltaTime;
 
             if (shootFactor > 0f && timer <= -gun.CooldownDelay)
             {
@@ -80,6 +75,9 @@ namespace Guns
 
         public void ServerResetWeapon()
         {
+            if (!NetworkObject.IsSpawned)
+                return;
+
             if (!IsServer)
                 return;
 
@@ -114,6 +112,8 @@ namespace Guns
 
             if (!IsOwner) return;
 
+            TryGetComponent(out owner);
+
             shootPoint = PlayerLook.OwnedInstance.camTransform.Find("FirePoint");
 
             inputActions = new Game();
@@ -129,6 +129,9 @@ namespace Guns
 
         public void Shoot()
         {
+            if (!NetworkObject.IsSpawned)
+                return;
+
             if (timer > 0f || currentAmmo.Value <= 0)
                 return;
 
@@ -167,6 +170,9 @@ namespace Guns
         [ServerRpc]
         public virtual void ShootServerRpc(Vector3 position, Vector3 direction)
         {
+            if (!NetworkObject.IsSpawned)
+                return;
+
             if (currentAmmo.Value <= 0)
                 return;
 
@@ -196,6 +202,9 @@ namespace Guns
         [ServerRpc]
         public void ReloadServerRpc()
         {
+            if (!NetworkObject.IsSpawned)
+                return;
+
             if (currentAmmo.Value < gun.Ammo)
             {
                 OnReloadPerformed(true);
@@ -225,6 +234,9 @@ namespace Guns
 
         public void ServerAmmo(int amount = 1)
         {
+            if (!NetworkObject.IsSpawned)
+                return;
+
             if (!IsServer)
                 return;
 
@@ -252,17 +264,20 @@ namespace Guns
 
         public IEnumerator ServerReload()
         {
-            if (IsServer)
+            if (NetworkObject.IsSpawned)
             {
-                currentAmmo.Value = 0;
+                if (IsServer)
+                {
+                    currentAmmo.Value = 0;
 
-                yield return new WaitForSeconds(gun.ReloadTime);
+                    yield return new WaitForSeconds(gun.ReloadTime);
 
-                currentAmmo.Value = gun.Ammo;
+                    currentAmmo.Value = gun.Ammo;
 
-                OnReloadFinished(true);
+                    OnReloadFinished(true);
 
-                OnReloadFinishedClientRpc(true);
+                    OnReloadFinishedClientRpc(true);
+                }
             }
         }
 

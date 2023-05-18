@@ -1,12 +1,12 @@
-using UnityEngine;
-using Utilities.Gameplay;
-
-namespace Entities
+namespace EntitySystem
 {
+    using UnityEngine;
+    using Utilities.Gameplay;
+
     [CreateAssetMenu(fileName = "New Entity", menuName = "Entity")]
     public class EntityStats : ScriptableObject
     {
-        public int Health;
+        public float Health;
 
         public DestroyAfter[] DeathObjects;
 

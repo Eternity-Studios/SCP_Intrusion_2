@@ -1,8 +1,8 @@
-using UnityEngine;
-
-namespace Entities
+namespace EntitySystem
 {
-    public class BodyPart : MonoBehaviour, IHealth
+    using UnityEngine;
+
+    public class BodyPart : MonoBehaviour, IDamageable
     {
         public float Multiplier;
 
@@ -13,7 +13,7 @@ namespace Entities
             owner = GetComponentInParent<Entity>();
         }
 
-        public void TakeDamage(int dmg, ulong attackerId)
+        public void TakeDamage(float dmg, ulong attackerId)
         {
             owner.TakeDamage(Mathf.RoundToInt(dmg * Multiplier), attackerId);
         }

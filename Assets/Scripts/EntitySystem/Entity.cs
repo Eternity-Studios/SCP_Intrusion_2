@@ -1,28 +1,28 @@
-using System;
-using Unity.Netcode;
-using UnityEngine;
-using Utilities.Gameplay;
-using Utilities.Networking;
-
-namespace Entities
+namespace EntitySystem
 {
+    using System;
+    using Unity.Netcode;
+    using UnityEngine;
+    using Utilities.Gameplay;
+    using Utilities.Networking;
+
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
-    public class Entity : NetworkBehaviour, IHealth
+    public class Entity : NetworkBehaviour, IDamageable
     {
         public EntityStats entity;
 
-        readonly NetworkVariable<int> currentHealth = new(0);
+        readonly NetworkVariable<float> currentHealth = new();
 
         public override void OnNetworkSpawn()
         {
-            Debug.Log("Spawned Object: " + gameObject.name + ", currentHealth: " + currentHealth);
+            Debug.Log("Spawned Object: " + gameObject.name + ", currentHealth: " + currentHealth.Value);
 
             if (IsServer)
                 currentHealth.Value = entity.Health;
         }
 
-        public void TakeDamage(int dmg, ulong attackerId)
+        public void TakeDamage(float dmg, ulong attackerId)
         {
             if (!IsServer)
                 return;
@@ -53,15 +53,15 @@ namespace Entities
             NetworkObject.Despawn(true);
         }
 
-        public event Action<ulong, int> onDamage;
-        public void OnDamage(ulong attackerId, int dmg) { onDamage?.Invoke(attackerId, dmg); }
+        public event Action<ulong, float> onDamage;
+        public void OnDamage(ulong attackerId, float dmg) { onDamage?.Invoke(attackerId, dmg); }
 
         public event Action<ulong> onDeath;
         public void OnDeath(ulong attackerId) { onDeath?.Invoke(attackerId); }
     }
 
-    public interface IHealth
+    public interface IDamageable
     {
-        public void TakeDamage(int dmg, ulong attackerId);
+        public void TakeDamage(float dmg, ulong attackerId);
     }
 }

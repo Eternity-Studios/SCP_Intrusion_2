@@ -1,6 +1,6 @@
 namespace AI
 {
-    using Entities;
+    using EntitySystem;
     using Unity.Netcode;
     using UnityEngine;
 
@@ -9,9 +9,9 @@ namespace AI
     public abstract class AIBehavior : NetworkBehaviour
     {
         public AIBase AI { get; private set; }
-        [SerializeField]
-        protected float _range = -1f;
 
+        protected virtual float GetRange => -1f;
+        private float _range;
         protected virtual void FixedUpdate()
         {
             if (!IsServer)
@@ -28,18 +28,18 @@ namespace AI
             }
         }
 
-        public virtual void OnInsideRange(Entity target)
+        protected virtual void OnInsideRange(Entity target)
         {
         }
 
         public virtual void OnTargetAdded(Entity target)
         {
-            
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             AI = GetComponent<AIBase>();
+            _range = GetRange;
         }
 
         public AIBehavior(AIBase ai)

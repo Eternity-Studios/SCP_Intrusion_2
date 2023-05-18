@@ -1,8 +1,7 @@
-using Unity.Netcode;
-using UnityEngine;
-
-namespace Guns
+namespace Weapon
 {
+    using UnityEngine;
+
     public class GunVisuals : MonoBehaviour
     {
         [HideInInspector]

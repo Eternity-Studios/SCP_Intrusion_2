@@ -1,27 +1,29 @@
-namespace AI
+﻿namespace AI
 {
     using EntitySystem;
     using UnityEngine;
     using Weapon;
 
-    public class MeleeBehavior : AIBehavior
+    public class RangedBehavior : AIBehavior
     {
-        public KnifeStats weapon;
+        public GunStats weapon;
         private float cooldown = float.NaN;
         private float cooldownCurrent = float.NaN;
-        protected override float GetRange => weapon.Range;
+        [SerializeField]
+        private float range = -1f;
+        protected override float GetRange => range;
 
         protected override void OnInsideRange(Entity target)
         {
             cooldownCurrent -= Time.fixedDeltaTime;
             if (!(cooldownCurrent <= 0f)) return;
             cooldownCurrent = cooldown;
-            ServerShoot(); // TODO
+            target.TakeDamage(weapon.Damage, AI.OwnerClientId);
         }
 
         protected override void Awake()
         {
-            cooldown = 1f / weapon.AttackSpeed;
+            cooldown = 1f / weapon.RPS;
             cooldownCurrent = cooldown;
             base.Awake();
         }

@@ -12,6 +12,8 @@ namespace AI
 
         protected virtual float GetRange => -1f;
         private float _range;
+        [SerializeField]
+        private float StopDistance = -1f;
         protected virtual void FixedUpdate()
         {
             if (!IsServer)
@@ -20,8 +22,19 @@ namespace AI
             var target = AI.CurrentTarget;
             if (target != null) // nvm
             {
-                AI.agent.SetDestination(target.transform.position);
-                if (_range > 0f && Vector3.Distance(AI.transform.position, target.transform.position) <= _range)
+                var position = target.transform.position;
+                var distance = Vector3.Distance(AI.transform.position, position);
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                if (StopDistance != -1 && distance <= StopDistance)
+                {
+                    AI.agent.isStopped = true;
+                }
+                else
+                {
+                    AI.agent.isStopped = false;
+                    AI.agent.SetDestination(position);
+                }
+                if (_range < 0f || (_range > 0f && distance <= _range))
                 {
                     OnInsideRange(target);
                 }

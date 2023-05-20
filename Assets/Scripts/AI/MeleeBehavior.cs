@@ -14,11 +14,9 @@ namespace AI
         protected override void OnInsideRange(Entity target)
         {
             cooldownCurrent -= Time.fixedDeltaTime;
-            if (cooldownCurrent <= 0f)
-            {
-                cooldownCurrent = cooldown;
-                target.TakeDamage(weapon.Damage, AI.OwnerClientId);
-            }
+            if (!(cooldownCurrent <= 0f)) return;
+            cooldownCurrent = cooldown;
+            target.TakeDamage(weapon.Damage, AI.OwnerClientId);
         }
 
         protected override void Awake()

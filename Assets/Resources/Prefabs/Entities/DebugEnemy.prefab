@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 4275191216274053929}
   - component: {fileID: 4275191216274053930}
   - component: {fileID: -2280408821094289569}
-  - component: {fileID: 7635410834238846440}
+  - component: {fileID: 5692643555880329968}
   - component: {fileID: 4275191216274053931}
   - component: {fileID: 7909989284857624698}
   - component: {fileID: 2902451459673083482}
@@ -295,10 +295,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b906586d90ad34093c0aa2b15b7da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentBehavior: {fileID: 7635410834238846440}
+  CurrentBehavior: {fileID: 5692643555880329968}
   agent: {fileID: 0}
   targets: []
---- !u!114 &7635410834238846440
+--- !u!114 &5692643555880329968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,10 +307,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4275191216274053909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0119bd5e20e034b448f1600b9716561f, type: 3}
+  m_Script: {fileID: 11500000, guid: 51cf23e0df534adfb8c7bef5910b8b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: e0cfd64419a94f6449a32bfa187fe46d, type: 2}
+  StopDistance: 10
+  weapon: {fileID: 11400000, guid: bfe5007104ec2f546b9ae1bb464033eb, type: 2}
+  range: 15
 --- !u!114 &4275191216274053931
 MonoBehaviour:
   m_ObjectHideFlags: 0

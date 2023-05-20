@@ -16,7 +16,7 @@ namespace AI
             cooldownCurrent -= Time.fixedDeltaTime;
             if (!(cooldownCurrent <= 0f)) return;
             cooldownCurrent = cooldown;
-            ServerShoot(); // TODO
+            target.TakeDamage(weapon.Damage, AI.OwnerClientId);
         }
 
         protected override void Awake()

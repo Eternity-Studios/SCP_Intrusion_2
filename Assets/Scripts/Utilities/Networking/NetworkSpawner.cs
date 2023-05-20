@@ -37,7 +37,7 @@ namespace Utilities.Networking
                 timer = MaxTimer;
 
                 NetworkObject no = Instantiate(Spawnee, transform.position, transform.rotation);
-                no.Spawn(true);
+                no.Spawn();
 
                 if (OneTime)
                     enabled = false;

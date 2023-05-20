@@ -27,9 +27,5 @@ namespace AI
             cooldownCurrent = cooldown;
             base.Awake();
         }
-
-        public MeleeBehavior(AIBase ai) : base(ai)
-        {
-        }
     }
 }

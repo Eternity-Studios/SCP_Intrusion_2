@@ -41,10 +41,5 @@ namespace AI
             AI = GetComponent<AIBase>();
             _range = GetRange;
         }
-
-        public AIBehavior(AIBase ai)
-        {
-            AI = ai;
-        }
     }
 }

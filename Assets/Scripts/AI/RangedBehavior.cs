@@ -11,6 +11,7 @@
     public class RangedBehavior : AIBehavior
     {
         public GunStats weapon;
+        public Transform shootPoint;
         private float cooldown = float.NaN;
         private float cooldownCurrent = float.NaN;
         private int ammo;
@@ -25,16 +26,13 @@
             if (ammo <= 0)
             {
                 ammo = weapon.Ammo;
-                cooldownCurrent = weapon.RecoilCooldown;
+                cooldownCurrent = weapon.ReloadTime;
                 return;
             }
             cooldownCurrent = cooldown;
             var sp = weapon.Spread.Evaluate(Mathf.InverseLerp(0f, weapon.Ammo, 0));
-            var shootPoint = AI.transform;
-            shootPoint.LookAt(target.transform.position);
-            //shootPoint.localRotation = Quaternion.Euler(Random.Range(-sp, sp), Random.Range(-sp, sp), 0f); No spread?
-            if (Physics.Raycast(shootPoint.position, shootPoint.forward, out RaycastHit hit, weapon.AIRange*3, 3,
-                    QueryTriggerInteraction.Ignore))
+            shootPoint.localRotation = Quaternion.Euler(Random.Range(-sp, sp), Random.Range(-sp, sp), 0f);
+            if (Physics.Raycast(shootPoint.position, shootPoint.forward, out RaycastHit hit, weapon.AIRange, weapon.HitMask, QueryTriggerInteraction.Ignore))
             {
                 if (weapon.HitObjects.Length > 0)
                     foreach (DestroyAfter go in weapon.HitObjects)

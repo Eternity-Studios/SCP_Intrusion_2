@@ -18,7 +18,7 @@ namespace AI
                 return;
 
             var target = AI.CurrentTarget;
-            if (target is not null) // is null is up to 400x faster than == null cause unity; in this case it doesn't matter since we return null ourselves if not found
+            if (target != null) // nvm
             {
                 AI.agent.SetDestination(target.transform.position);
                 if (_range > 0f && Vector3.Distance(AI.transform.position, target.transform.position) <= _range)

@@ -3,9 +3,9 @@ namespace Utilities.Networking
     using global::Player.Interact;
     using global::Player.Management;
     using global::Player.Movement;
-    using Guns;
     using UnityEngine;
     using Utilities.Player;
+    using Weapon;
 
     public class ReferenceHub : MonoBehaviour
     {

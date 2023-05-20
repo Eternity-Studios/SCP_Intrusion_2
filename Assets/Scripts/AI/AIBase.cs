@@ -1,4 +1,3 @@
-using Entities;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,6 +5,7 @@ using UnityEngine.AI;
 namespace AI
 {
     using System.Collections.Generic;
+    using EntitySystem;
 
     public class AIBase : NetworkBehaviour
     {

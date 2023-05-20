@@ -1,9 +1,10 @@
-using Guns;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Utilities.Networking
 {
+    using Weapon;
+
     public class NetworkWeaponLoader : MonoBehaviour
     {
         public static NetworkWeaponLoader Singleton;

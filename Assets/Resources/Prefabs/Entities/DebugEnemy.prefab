@@ -233,9 +233,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4275191216274053929}
   - component: {fileID: 4275191216274053930}
-  - component: {fileID: 6506375493972850286}
+  - component: {fileID: -2280408821094289569}
+  - component: {fileID: 7635410834238846440}
   - component: {fileID: 4275191216274053931}
-  - component: {fileID: 7822070026490829967}
   - component: {fileID: 7909989284857624698}
   - component: {fileID: 2902451459673083482}
   - component: {fileID: 4886633899892407057}
@@ -283,7 +283,22 @@ MonoBehaviour:
   SceneMigrationSynchronization: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &6506375493972850286
+--- !u!114 &-2280408821094289569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4275191216274053909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b906586d90ad34093c0aa2b15b7da3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentBehavior: {fileID: 7635410834238846440}
+  agent: {fileID: 0}
+  targets: []
+--- !u!114 &7635410834238846440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -295,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0119bd5e20e034b448f1600b9716561f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 1
+  weapon: {fileID: 11400000, guid: e0cfd64419a94f6449a32bfa187fe46d, type: 2}
 --- !u!114 &4275191216274053931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,21 +324,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 11400000, guid: 06f283a7b0062f447bb2c2b487032864, type: 2}
---- !u!114 &7822070026490829967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4275191216274053909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90b906586d90ad34093c0aa2b15b7da3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentBehavior: {fileID: 6506375493972850286}
-  agent: {fileID: 0}
-  targets: []
 --- !u!114 &7909989284857624698
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 namespace AI
 {
-    using Entities;
+    using EntitySystem;
     using Unity.Netcode;
     using UnityEngine;
 
@@ -9,16 +9,16 @@ namespace AI
     public abstract class AIBehavior : NetworkBehaviour
     {
         public AIBase AI { get; private set; }
-        [SerializeField]
-        protected float _range = -1f;
 
+        protected virtual float GetRange => -1f;
+        private float _range;
         protected virtual void FixedUpdate()
         {
             if (!IsServer)
                 return;
 
             var target = AI.CurrentTarget;
-            if (target is not null) // is null is up to 400x faster than == null cause unity; in this case it doesn't matter since we return null ourselves if not found
+            if (target != null) // nvm
             {
                 AI.agent.SetDestination(target.transform.position);
                 if (_range > 0f && Vector3.Distance(AI.transform.position, target.transform.position) <= _range)
@@ -28,23 +28,18 @@ namespace AI
             }
         }
 
-        public virtual void OnInsideRange(Entity target)
+        protected virtual void OnInsideRange(Entity target)
         {
         }
 
         public virtual void OnTargetAdded(Entity target)
         {
-            
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             AI = GetComponent<AIBase>();
-        }
-
-        public AIBehavior(AIBase ai)
-        {
-            AI = ai;
+            _range = GetRange;
         }
     }
 }

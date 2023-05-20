@@ -1,15 +1,31 @@
 namespace AI
 {
-    using Entities;
+    using EntitySystem;
+    using UnityEngine;
+    using Weapon;
 
     public class MeleeBehavior : AIBehavior
     {
-        public override void OnInsideRange(Entity target)
+        public KnifeStats weapon;
+        private float cooldown = float.NaN;
+        private float cooldownCurrent = float.NaN;
+        protected override float GetRange => weapon.Range;
+
+        protected override void OnInsideRange(Entity target)
         {
+            cooldownCurrent -= Time.fixedDeltaTime;
+            if (cooldownCurrent <= 0f)
+            {
+                cooldownCurrent = cooldown;
+                target.TakeDamage(weapon.Damage, AI.OwnerClientId);
+            }
         }
 
-        public MeleeBehavior(AIBase ai) : base(ai)
+        protected override void Awake()
         {
+            cooldown = 1f / weapon.AttackSpeed;
+            cooldownCurrent = cooldown;
+            base.Awake();
         }
     }
 }

@@ -1,26 +1,26 @@
-using Entities;
-using Player.Movement;
-using System;
-using System.Collections;
-using UI;
-using Unity.Netcode;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using Utilities.Audio;
-using Utilities.Gameplay;
-using Utilities.Networking;
-using Utilities.Player;
-using Random = UnityEngine.Random;
-
-namespace Guns
+namespace Weapon
 {
+    using System;
+    using System.Collections;
+    using EntitySystem;
+    using Player.Movement;
+    using UI;
+    using Unity.Netcode;
+    using UnityEngine;
+    using UnityEngine.InputSystem;
+    using Utilities.Audio;
+    using Utilities.Gameplay;
+    using Utilities.Networking;
+    using Utilities.Player;
+    using Random = UnityEngine.Random;
+
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
     public class Gun : ReferenceHubModule
     {
         public GunStats gun;
 
-        readonly NetworkVariable<int> currentAmmo = new(0);
+        readonly NetworkVariable<int> currentAmmo = new();
 
         Game inputActions;
 
@@ -37,11 +37,11 @@ namespace Guns
         float shootFactorClamped;
         float sp;
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (!IsOwner) return;
 
-            timer -= Time.fixedDeltaTime;
+            timer -= Time.deltaTime;
 
             if (shootFactor > 0f && timer <= -gun.CooldownDelay)
             {
@@ -187,7 +187,7 @@ namespace Guns
                 OnShootClientRpc();
 
                 Entity ent = _hit.transform.GetComponentInParent<Entity>();
-                IHealth hit = _hit.transform.GetComponent<IHealth>();
+                IDamageable hit = _hit.transform.GetComponent<IDamageable>();
 
                 if (ent != null)
                 {

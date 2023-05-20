@@ -1,10 +1,10 @@
-using Guns;
-using Player.Management;
-using Unity.Netcode;
-using UnityEngine;
-
-namespace Interactables
+namespace Items
 {
+    using Player.Management;
+    using Unity.Netcode;
+    using UnityEngine;
+    using Weapon;
+
     [RequireComponent(typeof(NetworkObject))]
     [DisallowMultipleComponent]
     public class GunPickup : NetworkBehaviour, IInteractable

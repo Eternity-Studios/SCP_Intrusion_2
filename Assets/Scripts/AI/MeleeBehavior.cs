@@ -6,7 +6,7 @@ namespace AI
 
     public class MeleeBehavior : AIBehavior
     {
-        public KnifeStats weapon;
+        public MeleeStats weapon;
         private float cooldown = float.NaN;
         private float cooldownCurrent = float.NaN;
         protected override float GetRange => weapon.Range;

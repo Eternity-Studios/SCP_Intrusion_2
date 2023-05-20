@@ -2,8 +2,8 @@
 {
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = "New Knife", menuName = "Knife")]
-    public class KnifeStats : ScriptableObject
+    [CreateAssetMenu(fileName = "New Melee", menuName = "Melee")]
+    public class MeleeStats : ScriptableObject
     {
         public float Damage = 25f;
         public float AttackSpeed = 1f;

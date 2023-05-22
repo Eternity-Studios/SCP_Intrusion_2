@@ -23,6 +23,8 @@ namespace Player.Interact
             inputActions = new Game();
 
             inputActions.Player.Interact.performed += ClientInteract;
+
+            inputActions.Enable();
         }
 
         public override void OnNetworkSpawn()
@@ -37,6 +39,7 @@ namespace Player.Interact
         public void ClientInteract(InputAction.CallbackContext callbackContext)
         {
             InteractServerRpc();
+            Debug.DrawRay(ReferenceHub.look.camTransform.position, ReferenceHub.look.camTransform.forward, Color.blue, Distance);
         }
 
         [ServerRpc]

@@ -81,7 +81,8 @@ namespace Weapon
             if (!IsServer)
                 return;
 
-            StopCoroutine(reloadOperation);
+            if (reloadOperation != null)
+                StopCoroutine(reloadOperation);
 
             currentAmmo.Value = gun.Ammo;
 

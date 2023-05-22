@@ -45,6 +45,14 @@ namespace Player.Interact
         [ServerRpc]
         public void InteractServerRpc()
         {
+            ServerInteract();
+        }
+
+        public void ServerInteract()
+        {
+            if (!IsServer)
+                return;
+
             if (Physics.Raycast(ReferenceHub.look.camTransform.position, ReferenceHub.look.camTransform.forward, out RaycastHit _hit, Distance, PickupLayer))
             {
                 if (_hit.transform.TryGetComponent(out IInteractable interactable))

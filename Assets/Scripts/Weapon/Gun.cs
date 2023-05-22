@@ -171,10 +171,15 @@ namespace Weapon
         [ServerRpc]
         public virtual void ShootServerRpc(Vector3 position, Vector3 direction)
         {
-            if (!NetworkObject.IsSpawned)
+            if (!NetworkObject.IsSpawned || currentAmmo.Value <= 0)
                 return;
 
-            if (currentAmmo.Value <= 0)
+            ServerShoot(position, direction);
+        }
+
+        public void ServerShoot(Vector3 position, Vector3 direction)
+        {
+            if (!IsServer)
                 return;
 
             if (Physics.Raycast(position, direction, out RaycastHit _hit, Mathf.Infinity, gun.HitMask, QueryTriggerInteraction.Ignore))

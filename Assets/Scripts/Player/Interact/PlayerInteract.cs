@@ -1,3 +1,4 @@
+using Player.Movement;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,15 +19,6 @@ namespace Player.Interact
 
         Game inputActions;
 
-        private void Awake()
-        {
-            inputActions = new Game();
-
-            inputActions.Player.Interact.performed += ClientInteract;
-
-            inputActions.Enable();
-        }
-
         public override void OnNetworkSpawn()
         {
             if (!IsOwner)
@@ -34,26 +26,31 @@ namespace Player.Interact
 
             if (OwnedInstance == null) OwnedInstance = this;
             else Destroy(gameObject);
+
+            inputActions = new Game();
+
+            inputActions.Player.Interact.performed += ClientInteract;
+
+            inputActions.Enable();
         }
 
         public void ClientInteract(InputAction.CallbackContext callbackContext)
         {
-            InteractServerRpc();
-            Debug.DrawRay(ReferenceHub.look.camTransform.position, ReferenceHub.look.camTransform.forward, Color.blue, Distance);
+            InteractServerRpc(PlayerLook.OwnedInstance.camTransform.position, PlayerLook.OwnedInstance.camTransform.forward);
         }
 
         [ServerRpc]
-        public void InteractServerRpc()
+        public void InteractServerRpc(Vector3 position, Vector3 direction)
         {
-            ServerInteract();
+            ServerInteract(position, direction);
         }
 
-        public void ServerInteract()
+        public void ServerInteract(Vector3 position, Vector3 direction)
         {
             if (!IsServer)
                 return;
 
-            if (Physics.Raycast(ReferenceHub.look.camTransform.position, ReferenceHub.look.camTransform.forward, out RaycastHit _hit, Distance, PickupLayer))
+            if (Physics.Raycast(position, direction, out RaycastHit _hit, Distance, PickupLayer))
             {
                 if (_hit.transform.TryGetComponent(out IInteractable interactable))
                 {

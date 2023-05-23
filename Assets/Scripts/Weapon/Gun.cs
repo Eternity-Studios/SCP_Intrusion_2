@@ -140,7 +140,7 @@ namespace Weapon
 
             Spread();
 
-            ShootServerRpc(shootPoint.position, shootPoint.forward);
+            ShootServerRpc(shootPoint.position, shootPoint.forward, owner.entity.Faction);
 
             OnShootLocal();
 
@@ -169,15 +169,15 @@ namespace Weapon
         }
 
         [ServerRpc]
-        public virtual void ShootServerRpc(Vector3 position, Vector3 direction)
+        public virtual void ShootServerRpc(Vector3 position, Vector3 direction, Factions faction)
         {
             if (!NetworkObject.IsSpawned || currentAmmo.Value <= 0)
                 return;
 
-            ServerShoot(position, direction);
+            ServerShoot(position, direction, faction);
         }
 
-        public void ServerShoot(Vector3 position, Vector3 direction)
+        public void ServerShoot(Vector3 position, Vector3 direction, Factions faction)
         {
             if (!IsServer)
                 return;
@@ -197,7 +197,7 @@ namespace Weapon
 
                 if (ent != null)
                 {
-                    if (ent.entity.Faction == owner.entity.Faction)
+                    if (ent.entity.Faction == faction)
                         return;
 
                     hit.TakeDamage(gun.Damage, OwnerClientId);

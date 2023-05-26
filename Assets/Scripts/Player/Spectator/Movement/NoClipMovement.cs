@@ -27,6 +27,10 @@ namespace Player.Movement
             inputs = new Game();
 
             movement = inputs.Player.Movement;
+            inputs.Player.Crouch.performed += Descend;
+            inputs.Player.Jump.performed += Ascend;
+            inputs.Player.Crouch.canceled += Descend;
+            inputs.Player.Jump.canceled += Ascend;
 
             inputs.Player.Enable();
         }
@@ -34,6 +38,11 @@ namespace Player.Movement
         public override void OnDestroy()
         {
             if (!IsOwner) return;
+
+            inputs.Player.Crouch.performed -= Descend;
+            inputs.Player.Jump.performed -= Ascend;
+            inputs.Player.Crouch.canceled -= Descend;
+            inputs.Player.Jump.canceled -= Ascend;
 
             inputs.Player.Disable();
         }
@@ -47,7 +56,23 @@ namespace Player.Movement
 
         private void FixedUpdate()
         {
-            transform.Translate(Speed * Time.fixedDeltaTime * MovementInput.y * transform.forward + Speed * Time.fixedDeltaTime * MovementInput.x * transform.right);
+            transform.Translate(Speed * Time.fixedDeltaTime * MovementInput.y * transform.forward + Speed * Time.fixedDeltaTime * MovementInput.x * transform.right + Speed * Time.fixedDeltaTime * AscensionInput * Vector3.up);
+        }
+
+        public void Descend(InputAction.CallbackContext callbackContext)
+        {
+            if (callbackContext.performed)
+                AscensionInput = -1f;
+            else if (callbackContext.canceled)
+                AscensionInput = 0f;
+        }
+
+        public void Ascend(InputAction.CallbackContext callbackContext)
+        {
+            if (callbackContext.performed)
+                AscensionInput = 1f;
+            else if (callbackContext.canceled)
+                AscensionInput = 0f;
         }
     }
 }

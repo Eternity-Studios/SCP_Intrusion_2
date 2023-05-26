@@ -70,13 +70,16 @@ namespace Player.Movement
             }
             else
                 jumpBuffer = 0f;
+        }
 
+        private void FixedUpdate()
+        {
             if (controller.isGrounded && grav <= 0f)
-                grav = Mathf.MoveTowards(grav, -0.3f, StoppingForce * Time.deltaTime);
+                grav = Mathf.MoveTowards(grav, -0.3f, StoppingForce * Time.fixedDeltaTime);
             else if (!controller.isGrounded)
-                grav -= Gravity * Time.deltaTime;
+                grav -= Gravity * Time.fixedDeltaTime;
 
-            Vector3 motion = MovementInput.x * Speed * Time.deltaTime * transform.right + MovementInput.y * Speed * Time.deltaTime * transform.forward + grav * Time.deltaTime * Vector3.up;
+            Vector3 motion = MovementInput.x * Speed * Time.fixedDeltaTime * transform.right + MovementInput.y * Speed * Time.fixedDeltaTime * transform.forward + grav * Time.fixedDeltaTime * Vector3.up;
 
             controller.Move(motion);
         }

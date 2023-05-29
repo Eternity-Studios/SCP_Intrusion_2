@@ -20,6 +20,8 @@ namespace Weapon
     {
         public GunStats gun;
 
+        public Transform ViewModelTransform;
+
         readonly NetworkVariable<int> currentAmmo = new();
 
         Game inputActions;
@@ -75,14 +77,19 @@ namespace Weapon
 
         public void ServerResetWeapon()
         {
-            if (!NetworkObject.IsSpawned)
-                return;
-
-            if (!IsServer)
+            if (!NetworkObject.IsSpawned || !IsServer)
                 return;
 
             if (reloadOperation != null)
                 StopCoroutine(reloadOperation);
+
+            foreach (Transform go in ViewModelTransform)
+            {
+                if (go != ViewModelTransform)
+                    Destroy(go.gameObject);
+            }
+
+            Instantiate(gun.ViewModel, ViewModelTransform);
 
             currentAmmo.Value = gun.Ammo;
 
@@ -104,6 +111,14 @@ namespace Weapon
             sp = 0f;
 
             IsShooting = false;
+
+            foreach (Transform go in ViewModelTransform)
+            {
+                if (go != ViewModelTransform)
+                    Destroy(go.gameObject);
+            }
+
+            Instantiate(gun.ViewModel, ViewModelTransform);
         }
 
         public override void OnNetworkSpawn()

@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 11400000, guid: bfe5007104ec2f546b9ae1bb464033eb, type: 2}
+  ViewModelTransform: {fileID: 1314505760587044719}
 --- !u!114 &3304326076737924805
 MonoBehaviour:
   m_ObjectHideFlags: 0

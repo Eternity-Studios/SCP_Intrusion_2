@@ -19,6 +19,7 @@ MonoBehaviour:
   CooldownDelay: 0
   RPS: 3
   ReloadTime: 1.5
+  AIRange: 10
   RecoilPattern:
     serializedVersion: 2
     m_Curve:
@@ -99,7 +100,7 @@ MonoBehaviour:
     m_Bits: 1
   HitObjects:
   - {fileID: 6997485722629429457, guid: 3478487d7c935d34885d2f3b8826b6a9, type: 3}
-  ViewModel: {fileID: 1200661621455717695, guid: b6b85453bf5ecc94d9f4df3238bd436f,
+  ViewModel: {fileID: 1200661621455717695, guid: cfaea60d43482854487e042d5c589584,
     type: 3}
   ShootSounds:
   - {fileID: 8300000, guid: 4ab9c676b4db26c4184789156827dc69, type: 3}

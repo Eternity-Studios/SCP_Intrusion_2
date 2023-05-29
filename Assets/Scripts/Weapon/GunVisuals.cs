@@ -30,6 +30,17 @@ namespace Weapon
             gun.onReloadFinished += OnReloadFinished;
         }
 
+        private void OnDestroy()
+        {
+            if (!gun.IsOwner)
+                gun.onShoot -= OnShoot;
+            else
+                gun.onShootLocal -= OnShoot;
+
+            gun.onReloadPerformed -= OnReloadPerformed;
+            gun.onReloadFinished -= OnReloadFinished;
+        }
+
         public void OnShoot()
         {
             particle.Play();

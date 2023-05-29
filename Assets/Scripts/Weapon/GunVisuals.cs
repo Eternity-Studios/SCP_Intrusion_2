@@ -44,6 +44,7 @@ namespace Weapon
         public void OnShoot()
         {
             particle.Play();
+            anim.Play("Shoot", 0, 0f);
         }
 
         public void OnReloadPerformed(bool performed)
@@ -51,12 +52,12 @@ namespace Weapon
             if (!performed)
                 return;
 
-            anim.Play("StartReload");
+            anim.Play("StartReload", 0, 0f);
         }
 
         public void OnReloadFinished(bool completed)
         {
-            anim.Play("EndReload");
+            anim.Play("EndReload", 0, 0f);
         }
     }
 }

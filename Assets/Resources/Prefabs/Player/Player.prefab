@@ -311,10 +311,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10
+  DashSpeed: 30
+  DashDuration: 0.1
   JumpSpeed: 8
   JumpBufferTime: 0.2
   Gravity: 30
   StoppingForce: 10
+  MaxStamina: 100
+  StaminaRecovery: 25
+  DashStaminaCost: 50
+  CurrentStamina:
+    m_InternalValue: 0
   MovementInput: {x: 0, y: 0}
 --- !u!114 &1237343986794030289
 MonoBehaviour:

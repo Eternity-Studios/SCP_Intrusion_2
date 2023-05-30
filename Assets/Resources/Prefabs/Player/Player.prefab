@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 130130170830258112}
   - component: {fileID: 3806573929553210122}
   - component: {fileID: 2708261099535099244}
-  - component: {fileID: 3304326076737924805}
+  - component: {fileID: 2336801840932343994}
   - component: {fileID: 4413185613840350676}
   - component: {fileID: 3938654354153198574}
   - component: {fileID: 5593016174655811489}
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun: {fileID: 11400000, guid: bfe5007104ec2f546b9ae1bb464033eb, type: 2}
   ViewModelTransform: {fileID: 1314505760587044719}
---- !u!114 &3304326076737924805
+--- !u!114 &2336801840932343994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1237343986794030291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8affaaaa637b3da4993fb2053aa1ead6, type: 3}
+  m_Script: {fileID: 11500000, guid: dad01b971cd8843488d4b6b8b9c7a7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 11400000, guid: df60ad2c143a1d7458947d133f666934, type: 2}

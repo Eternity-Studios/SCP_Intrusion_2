@@ -10,9 +10,15 @@ namespace AI
         private float cooldown = float.NaN;
         private float cooldownCurrent = float.NaN;
         protected override float GetRange => weapon.Range;
+        private Entity _lastTarget = null;
 
         protected override void OnInsideRange(Entity target)
         {
+            if (_lastTarget != target)
+            {
+                _lastTarget = target;
+                cooldownCurrent = FirstAttackDelay;
+            }
             cooldownCurrent -= Time.fixedDeltaTime;
             if (!(cooldownCurrent <= 0f)) return;
             cooldownCurrent = cooldown;

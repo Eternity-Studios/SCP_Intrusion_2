@@ -10,20 +10,34 @@ namespace AI
     {
         public AIBase AI { get; private set; }
 
+        protected bool paused => AI.Paused;
         protected virtual float GetRange => -1f;
         private float _range;
         [SerializeField]
-        private float StopDistance = -1f;
+        protected float StopDistance = -1f;
+        [SerializeField]
+        protected float ViewDistance = -1f;
+        [SerializeField]
+        protected float FirstAttackDelay = 0f;
+
         protected virtual void FixedUpdate()
         {
             if (!IsServer)
                 return;
+            if (paused)
+                return;
 
             var target = AI.CurrentTarget;
-            if (target != null) // nvm
+            if (target != null)
             {
                 var position = target.transform.position;
                 var distance = Vector3.Distance(AI.transform.position, position);
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                if (ViewDistance != -1 && distance > ViewDistance)
+                {
+                    AI.CurrentTarget = null;
+                    return;
+                }
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (StopDistance != -1 && distance <= StopDistance)
                 {

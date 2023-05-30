@@ -9,7 +9,7 @@ namespace AI
 
     public class AIBase : NetworkBehaviour
     {
-        public bool IsStopped => agent.isStopped;
+        public bool Paused = false;
         public AIBehavior CurrentBehavior;
         [HideInInspector]
         public NavMeshAgent agent;
@@ -21,6 +21,11 @@ namespace AI
             get => _currentTarget ??= targets.Count > 0 ? _currentTarget = targets[0] : null;
             set
             {
+                if (value == null)
+                {
+                    targets.Remove(_currentTarget);
+                    _currentTarget = null;
+                }
                 if (!targets.Contains(value))
                     targets.Add(value);
                 _currentTarget = value;

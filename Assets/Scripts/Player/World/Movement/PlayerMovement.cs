@@ -15,6 +15,9 @@ namespace Player.Movement
         public float JumpBufferTime = 0.2f;
         public float Gravity = 9.81f;
         public float StoppingForce = 10f;
+        private bool hasDoubleJumped = false;
+
+        bool canDoubleJump = true;
 
         [HideInInspector]
         public Vector2 MovementInput;
@@ -55,12 +58,15 @@ namespace Player.Movement
         private void Update()
         {
             if (!IsOwner) return;
+            bool grounded = controller.isGrounded;
 
             MovementInput = movement.ReadValue<Vector2>();
+            if (grounded)
+                hasDoubleJumped = false;
 
             if (jumpBuffer > 0f)
             {
-                if (controller.isGrounded)
+                if (grounded)
                 {
                     Jump();
                     jumpBuffer = 0f;
@@ -88,6 +94,11 @@ namespace Player.Movement
         {
             if (!controller.isGrounded)
             {
+                if (!hasDoubleJumped)
+                {
+                    Jump();
+                    hasDoubleJumped = true;
+                }
                 jumpBuffer = JumpBufferTime;
                 return;
             }

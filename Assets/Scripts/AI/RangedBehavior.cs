@@ -18,9 +18,15 @@
         [SerializeField]
         private float range = -1f;
         protected override float GetRange => range;
+        private Entity _lastTarget = null;
 
         protected override void OnInsideRange(Entity target)
         {
+            if (_lastTarget != target)
+            {
+                _lastTarget = target;
+                cooldownCurrent = FirstAttackDelay;
+            }
             cooldownCurrent -= Time.fixedDeltaTime;
             if (!(cooldownCurrent <= 0f)) return;
             if (ammo <= 0)

@@ -16,8 +16,13 @@ namespace Player.Management
         [HideInInspector]
         public ReferenceHub referenceHub;
 
+        [HideInInspector]
+        public bool IsAlive;
+
         [SerializeField]
         GameObject playerObject;
+        [SerializeField]
+        GameObject spectatorObject;
 
         public override void OnNetworkSpawn()
         {
@@ -44,6 +49,7 @@ namespace Player.Management
             NetworkObject n = p.GetComponent<NetworkObject>();
             n.SpawnWithOwnership(OwnerClientId, true);
             WorldPlayer = n;
+            IsAlive = true;
 
             p.GetComponent<PlayerController>().InitWithReferenceHub(referenceHub);
         }

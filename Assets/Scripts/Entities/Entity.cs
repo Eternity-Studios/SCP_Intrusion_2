@@ -22,7 +22,7 @@ namespace EntitySystem
                 currentHealth.Value = entity.Health;
         }
 
-        public void TakeDamage(float dmg, ulong attackerId)
+        public virtual void TakeDamage(float dmg, ulong attackerId)
         {
             if (!IsServer)
                 return;
@@ -37,7 +37,7 @@ namespace EntitySystem
                 Death(attackerId);
         }
 
-        public void Death(ulong attackerId)
+        public virtual void Death(ulong attackerId)
         {
             if (!IsServer)
                 return;

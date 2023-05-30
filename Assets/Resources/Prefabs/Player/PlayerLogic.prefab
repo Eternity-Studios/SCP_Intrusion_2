@@ -50,6 +50,8 @@ MonoBehaviour:
   referenceHub: {fileID: 0}
   playerObject: {fileID: 1237343986794030291, guid: dd215640dcba6be48bcdea1b255c789d,
     type: 3}
+  spectatorObject: {fileID: 3597192050744133081, guid: 610dc84203fcb6343821e8d5f3fcd686,
+    type: 3}
 --- !u!114 &6093961046758927094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +66,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
 --- !u!114 &4062848475790794778
@@ -78,7 +83,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c0afc702cb0514ab134cd314585dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
   weapon: {fileID: 0}
   movement: {fileID: 0}
   look: {fileID: 0}
   logic: {fileID: 0}
+  interact: {fileID: 0}

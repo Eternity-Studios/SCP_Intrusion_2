@@ -47,7 +47,7 @@
                 if (weapon.ShootSounds.Length > 0)
                     if (NetworkAudioManager.SoundToID.TryGetValue(weapon.ShootSounds[Random.Range(0, weapon.ShootSounds.Length)], out uint id))
                     {
-                        NetworkAudioManager.Singleton.PlaySoundClientRpc(id, transform.position, weapon.Volume, weapon.Priority, IsOwner);
+                        NetworkAudioManager.Singleton.PlaySoundClientRpc(id, transform.position, weapon.Volume, weapon.Priority);
                     }
 
                 if (hit.collider.gameObject.GetComponent<Entity>())

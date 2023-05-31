@@ -23,6 +23,7 @@ namespace Weapon
         public Transform ViewModelTransform;
 
         readonly NetworkVariable<int> currentAmmo = new();
+        readonly NetworkVariable<bool> reloading = new();
 
         Game inputActions;
 
@@ -233,6 +234,8 @@ namespace Weapon
                 OnReloadPerformedClientRpc(true);
 
                 reloadOperation = StartCoroutine(ServerReload());
+
+                reloading.Value = true;
             }
 
             OnReloadPerformed(false);
@@ -250,6 +253,8 @@ namespace Weapon
                 OnReloadFinished(false);
 
                 OnReloadFinishedClientRpc(false);
+
+                reloading.Value = false;
             }
         }
 
@@ -279,7 +284,7 @@ namespace Weapon
             if (gun.ShootSounds.Length > 0)
                 if (NetworkAudioManager.SoundToID.TryGetValue(gun.ShootSounds[Random.Range(0, gun.ShootSounds.Length)], out uint id))
                 {
-                    NetworkAudioManager.Singleton.PlaySoundClientRpc(id, transform.position, gun.Volume, gun.Priority, IsOwner);
+                    NetworkAudioManager.Singleton.PlaySoundClientRpc(id, transform.position, gun.Volume, gun.Priority);
                 }
         }
 
@@ -298,6 +303,8 @@ namespace Weapon
                     OnReloadFinished(true);
 
                     OnReloadFinishedClientRpc(true);
+
+                    reloading.Value = false;
                 }
             }
         }
@@ -315,7 +322,7 @@ namespace Weapon
 
         public void ReloadInput(InputAction.CallbackContext callbackContext)
         {
-            if (!IsClient)
+            if (!IsClient || reloading.Value)
                 return;
 
             ReloadServerRpc();

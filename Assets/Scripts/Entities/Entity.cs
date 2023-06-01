@@ -14,12 +14,33 @@ namespace EntitySystem
 
         readonly NetworkVariable<float> currentHealth = new();
 
+        public float Health
+        {
+            get
+            {
+                return currentHealth.Value;
+            }
+            set
+            {
+                if (!IsServer)
+                    return;
+
+                float temp = currentHealth.Value;
+
+                currentHealth.Value = value;
+
+                OnHealthChange(temp, value);
+
+                OnHealthChangeClientRpc(temp, value);
+            }
+        }
+
         public override void OnNetworkSpawn()
         {
-            Debug.Log("Spawned Object: " + gameObject.name + ", currentHealth: " + currentHealth.Value);
+            Debug.Log("Spawned Object: " + gameObject.name + ", currentHealth: " + Health);
 
             if (IsServer)
-                currentHealth.Value = entity.Health;
+                Health = entity.Health;
         }
 
         public virtual void TakeDamage(float dmg, ulong attackerId)
@@ -29,11 +50,11 @@ namespace EntitySystem
 
             Debug.Log(gameObject.name + " Took Damage: " + dmg + "; IsServer: " + IsServer);
 
-            currentHealth.Value -= dmg;
+            Health -= dmg;
 
             OnDamage(attackerId, dmg);
 
-            if (currentHealth.Value <= 0)
+            if (Health <= 0)
                 Death(attackerId);
         }
 
@@ -53,8 +74,17 @@ namespace EntitySystem
             NetworkObject.Despawn(true);
         }
 
+        [ClientRpc]
+        public void OnHealthChangeClientRpc(float prevHealth, float currHealth)
+        {
+            OnHealthChange(prevHealth, currHealth);
+        }
+
         public event Action<ulong, float> onDamage;
         public void OnDamage(ulong attackerId, float dmg) { onDamage?.Invoke(attackerId, dmg); }
+
+        public event Action<float, float> onHealthChange;
+        public void OnHealthChange(float prevHealth, float currHealth) { onHealthChange?.Invoke(prevHealth, currHealth); }
 
         public event Action<ulong> onDeath;
         public void OnDeath(ulong attackerId) { onDeath?.Invoke(attackerId); }

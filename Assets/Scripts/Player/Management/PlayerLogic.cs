@@ -10,6 +10,8 @@ namespace Player.Management
     [DisallowMultipleComponent]
     public class PlayerLogic : NetworkBehaviour
     {
+        public static PlayerLogic OwnedInstance;
+
         [HideInInspector]
         public NetworkObject WorldPlayer;
 
@@ -31,6 +33,8 @@ namespace Player.Management
             referenceHub.logic = this;
 
             Invoke(nameof(SpawnPlayer), 0.5f);
+
+            if (IsOwner && !IsServer) OwnedInstance = this;
         }
 
         public Transform GetAvailableSpawnPoint()

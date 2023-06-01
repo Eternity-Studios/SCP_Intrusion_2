@@ -1,3 +1,5 @@
+using System;
+using UI;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,7 +28,28 @@ namespace Player.Movement
         public float StaminaRecovery = 25f;
         public float DashStaminaCost = 50f;
 
-        public NetworkVariable<float> CurrentStamina = new(0);
+        readonly NetworkVariable<float> CurrentStamina = new(0);
+
+        public float Stamina
+        {
+            get
+            {
+                return CurrentStamina.Value;
+            }
+            set
+            {
+                if (!IsServer)
+                    return;
+
+                float temp = CurrentStamina.Value;
+
+                CurrentStamina.Value = value;
+
+                OnStaminaChange(temp, value);
+
+                OnStaminaChangeClientRpc(temp, value);
+            }
+        }
         
         bool hasDoubleJumped = false;
 
@@ -53,7 +76,7 @@ namespace Player.Movement
         {
             if (IsServer)
             {
-                CurrentStamina.Value = MaxStamina;
+                Stamina = MaxStamina;
             }
 
             if (!IsOwner) return;
@@ -64,6 +87,9 @@ namespace Player.Movement
             inputs.Player.Jump.performed += JumpInput;
             inputs.Player.Dash.performed += DashInput;
             inputs.Player.Enable();
+
+            if (!IsServer)
+                onStaminaChange += StaminaUI;
         }
 
         public override void OnDestroy()
@@ -73,6 +99,16 @@ namespace Player.Movement
             inputs.Player.Jump.performed -= JumpInput;
             inputs.Player.Dash.performed -= DashInput;
             inputs.Player.Disable();
+
+            if (!IsServer)
+                onStaminaChange -= StaminaUI;
+        }
+
+        public void StaminaUI(float prevStam, float currStam)
+        {
+            AliveUI.Instance.UpdateStamina(currStam, MaxStamina);
+
+            Debug.Log("Updating Stamina UI");
         }
 
         private void Update()
@@ -130,9 +166,9 @@ namespace Player.Movement
 
             if (IsServer)
             {
-                if (CurrentStamina.Value < MaxStamina)
+                if (Stamina < MaxStamina)
                 {
-                    CurrentStamina.Value = Mathf.Clamp(CurrentStamina.Value + StaminaRecovery * Time.fixedDeltaTime, 0f, MaxStamina);
+                    Stamina = Mathf.Clamp(CurrentStamina.Value + StaminaRecovery * Time.fixedDeltaTime, 0f, MaxStamina);
                 }
             }
         }
@@ -157,7 +193,7 @@ namespace Player.Movement
 
         public void DashInput(InputAction.CallbackContext callbackContext)
         {
-            if (CurrentStamina.Value - 50f < 0f)
+            if (Stamina - 50f < 0f)
                 return;
 
             Dash();
@@ -177,7 +213,7 @@ namespace Player.Movement
         [ServerRpc]
         public void SubtractStaminaServerRpc(float amount)
         {
-            CurrentStamina.Value -= amount;
+            Stamina -= amount;
         }
 
         public override void AssignController(PlayerController controller)
@@ -185,5 +221,14 @@ namespace Player.Movement
             base.AssignController(controller);
             ReferenceHub.movement = this;
         }
+
+        [ClientRpc]
+        public void OnStaminaChangeClientRpc(float prevStam, float currStam)
+        {
+            OnStaminaChange(prevStam, currStam);
+        }
+
+        public event Action<float, float> onStaminaChange;
+        public void OnStaminaChange(float prevStam, float currStam) { onStaminaChange?.Invoke(prevStam, currStam); }
     }
 }

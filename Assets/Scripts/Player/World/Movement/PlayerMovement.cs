@@ -88,7 +88,7 @@ namespace Player.Movement
             inputs.Player.Dash.performed += DashInput;
             inputs.Player.Enable();
 
-            if (!IsServer)
+            if (IsClient)
                 onStaminaChange += StaminaUI;
         }
 
@@ -100,7 +100,7 @@ namespace Player.Movement
             inputs.Player.Dash.performed -= DashInput;
             inputs.Player.Disable();
 
-            if (!IsServer)
+            if (IsClient)
                 onStaminaChange -= StaminaUI;
         }
 

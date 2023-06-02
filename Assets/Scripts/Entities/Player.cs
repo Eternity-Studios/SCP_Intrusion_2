@@ -11,7 +11,7 @@ namespace EntitySystem
         {
             base.OnNetworkSpawn();
 
-            if (IsOwner && !IsServer)
+            if (IsOwner && IsClient)
             {
                 onHealthChange += UpdateHPUI;
             }
@@ -19,7 +19,7 @@ namespace EntitySystem
 
         public override void OnDestroy()
         {
-            if (IsOwner && !IsServer)
+            if (IsOwner && IsClient)
             {
                 onHealthChange -= UpdateHPUI;
             }

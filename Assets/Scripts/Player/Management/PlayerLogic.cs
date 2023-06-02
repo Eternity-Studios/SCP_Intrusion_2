@@ -34,7 +34,7 @@ namespace Player.Management
 
             Invoke(nameof(SpawnPlayer), 0.5f);
 
-            if (IsOwner && !IsServer) OwnedInstance = this;
+            if (IsOwner && IsClient) OwnedInstance = this;
         }
 
         public Transform GetAvailableSpawnPoint()
@@ -54,6 +54,22 @@ namespace Player.Management
             n.SpawnWithOwnership(OwnerClientId, true);
             WorldPlayer = n;
             IsAlive = true;
+
+            p.GetComponent<PlayerController>().InitWithReferenceHub(referenceHub);
+        }
+
+        [ServerRpc]
+        public void SpawnSpectatorServerRpc()
+        {
+            Transform sp = WorldPlayer.transform;
+
+            Debug.Log("Spawn Player! Client ID: " + OwnerClientId);
+
+            GameObject p = Instantiate(spectatorObject, sp.position, Quaternion.identity);
+            NetworkObject n = p.GetComponent<NetworkObject>();
+            n.SpawnWithOwnership(OwnerClientId, true);
+            WorldPlayer = n;
+            IsAlive = false;
 
             p.GetComponent<PlayerController>().InitWithReferenceHub(referenceHub);
         }

@@ -1,5 +1,6 @@
 namespace EntitySystem
 {
+    using global::Player.Management;
     using UI;
     using UnityEngine;
     using Utilities.Gameplay;
@@ -44,6 +45,10 @@ namespace EntitySystem
             OnDeath(attackerId);
 
             Debug.Log("Player " + OwnerClientId + " Has Died; IsServer: " + IsServer);
+
+            PlayerLogic.OwnedInstance.SpawnSpectatorServerRpc();
+
+            NetworkObject.Despawn(true);
         }
     }
 }

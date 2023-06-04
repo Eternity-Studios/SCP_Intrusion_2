@@ -68,6 +68,9 @@ namespace Player.Management
             GameObject p = Instantiate(spectatorObject, sp.position, Quaternion.identity);
             NetworkObject n = p.GetComponent<NetworkObject>();
             n.SpawnWithOwnership(OwnerClientId, true);
+
+            Debug.Log("Spawning Player " + n.OwnerClientId);
+
             WorldPlayer = n;
             IsAlive = false;
 

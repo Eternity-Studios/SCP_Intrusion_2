@@ -1,4 +1,4 @@
-namespace Weapon
+namespace Weapon.Visuals
 {
     using UnityEngine;
 

@@ -51,9 +51,7 @@ namespace Entities
 
             Debug.Log("Player " + OwnerClientId + " Has Died; IsServer: " + IsServer);
 
-            PlayerLogic.OwnedInstance.SpawnSpectatorServerRpc();
-
-            NetworkObject.Despawn(true);
+            PlayerLogic.OwnedInstance.SpawnSpectatorServerRpc(transform.position);
         }
     }
 }

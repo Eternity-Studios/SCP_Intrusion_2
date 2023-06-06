@@ -59,13 +59,11 @@ namespace Player.Management
         }
 
         [ServerRpc]
-        public void SpawnSpectatorServerRpc()
+        public void SpawnSpectatorServerRpc(Vector3 pos)
         {
-            Transform sp = WorldPlayer.transform;
-
             Debug.Log("Spawn Player! Client ID: " + OwnerClientId);
 
-            GameObject p = Instantiate(spectatorObject, sp.position, Quaternion.identity);
+            GameObject p = Instantiate(spectatorObject, pos, Quaternion.identity);
             NetworkObject n = p.GetComponent<NetworkObject>();
             n.SpawnWithOwnership(OwnerClientId, true);
 

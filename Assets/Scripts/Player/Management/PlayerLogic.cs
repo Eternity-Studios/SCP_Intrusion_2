@@ -69,7 +69,7 @@ namespace Player.Management
             NetworkObject n = p.GetComponent<NetworkObject>();
             n.SpawnWithOwnership(OwnerClientId, true);
 
-            Debug.Log("Spawning Player " + n.OwnerClientId);
+            Debug.Log("Spawning Spectator Player " + n.OwnerClientId);
 
             WorldPlayer = n;
             IsAlive = false;

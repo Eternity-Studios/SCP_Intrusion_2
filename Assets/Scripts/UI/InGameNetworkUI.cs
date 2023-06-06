@@ -1,8 +1,10 @@
+using Player.Management;
 using Player.Movement;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Utilities.Networking;
 
 namespace UI
 {
@@ -54,19 +56,19 @@ namespace UI
             if (tabs.CurrentIndex != pauseMenuIndex)
             {
                 tabs.ActivateTab(pauseMenuIndex);
-                PlayerLook.OwnedInstance.SetState(false);
+                PlayerLogic.OwnedInstance.referenceHub.look.SetState(false);
             }
             else
             {
                 tabs.ActivateTab(gameUIIndex);
-                PlayerLook.OwnedInstance.SetState(true);
+                PlayerLogic.OwnedInstance.referenceHub.look.SetState(true);
             }
         }
 
         public void Resume()
         {
             tabs.ActivateTab(gameUIIndex);
-            PlayerLook.OwnedInstance.SetState(true);
+            PlayerLogic.OwnedInstance.referenceHub.look.SetState(true);
         }
 
         public void Disconnect()

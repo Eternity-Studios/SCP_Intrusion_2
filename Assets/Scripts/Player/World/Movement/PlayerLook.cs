@@ -11,8 +11,6 @@ namespace Player.Movement
     [DisallowMultipleComponent]
     public class PlayerLook : ReferenceHubModule
     {
-        public static PlayerLook OwnedInstance;
-
         public float Sensitivity = 0.45f;
         public float ClampAngle = 90f;
 
@@ -35,9 +33,6 @@ namespace Player.Movement
                 return;
             }
 
-            if (OwnedInstance == null) OwnedInstance = this;
-            else Destroy(gameObject);
-
             inputActions = new Game();
 
             look = inputActions.Player.Look;
@@ -55,8 +50,6 @@ namespace Player.Movement
                 return;
 
             look.Disable();
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
         }
 
         private void Update()

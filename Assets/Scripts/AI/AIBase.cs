@@ -18,7 +18,7 @@ namespace AI
         private Entity _currentTarget;
         public Entity CurrentTarget
         {
-            get => _currentTarget ??= targets.Count > 0 ? _currentTarget = targets[0] : null;
+            get => _currentTarget = _currentTarget != null ? _currentTarget : targets.Count > 0 ? _currentTarget = targets[0] : null;
             set
             {
                 if (value == null)
@@ -32,13 +32,13 @@ namespace AI
             }
         }
         [HideInInspector]
-        public List<Entity> targets = new List<Entity>();
+        public List<Entity> targets = new();
 
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             owner = GetComponent<Entity>();
-            CurrentBehavior ??= gameObject.AddComponent<IdleBehavior>();
+            CurrentBehavior = CurrentBehavior != null ? CurrentBehavior : gameObject.AddComponent<IdleBehavior>();
         }
 
         private void FixedUpdate()

@@ -56,7 +56,7 @@ namespace Player.Movement
 
         private void FixedUpdate()
         {
-            transform.Translate(Speed * Time.fixedDeltaTime * MovementInput.y * transform.forward + Speed * Time.fixedDeltaTime * MovementInput.x * transform.right + Speed * Time.fixedDeltaTime * AscensionInput * Vector3.up);
+            transform.Translate(Speed * Time.fixedDeltaTime * MovementInput.y * Vector3.forward + Speed * Time.fixedDeltaTime * MovementInput.x * Vector3.right + Speed * Time.fixedDeltaTime * AscensionInput * Vector3.up);
         }
 
         public void Descend(InputAction.CallbackContext callbackContext)

@@ -131,8 +131,6 @@ namespace Weapon
 
             TryGetComponent(out owner);
 
-            shootPoint = PlayerLook.OwnedInstance.camTransform.Find("FirePoint");
-
             inputActions = new Game();
 
             inputActions.Player.Shoot.performed += ShootInput;
@@ -142,6 +140,11 @@ namespace Weapon
             inputActions.Player.Enable();
 
             timer = 1f / gun.RPS;
+        }
+
+        private void Start()
+        {
+            shootPoint = ReferenceHub.look.camTransform.Find("FirePoint");
         }
 
         public void Shoot()
@@ -181,7 +184,7 @@ namespace Weapon
 
         public void Recoil()
         {
-            PlayerLook.OwnedInstance.CamAdd(gun.Recoil, gun.RecoilPattern.Evaluate(Mathf.InverseLerp(0f, gun.Ammo, shootFactor)) * gun.Recoil);
+            ReferenceHub.look.CamAdd(gun.Recoil, gun.RecoilPattern.Evaluate(Mathf.InverseLerp(0f, gun.Ammo, shootFactor)) * gun.Recoil);
         }
 
         [ServerRpc]

@@ -36,7 +36,7 @@ namespace Player.Interact
 
         public void ClientInteract(InputAction.CallbackContext callbackContext)
         {
-            InteractServerRpc(PlayerLook.OwnedInstance.camTransform.position, PlayerLook.OwnedInstance.camTransform.forward);
+            InteractServerRpc(ReferenceHub.look.camTransform.position, ReferenceHub.look.camTransform.forward);
         }
 
         [ServerRpc]

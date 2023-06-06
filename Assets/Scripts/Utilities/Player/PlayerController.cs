@@ -6,7 +6,7 @@
     public class PlayerController : NetworkBehaviour
     {
         public ReferenceHub ReferenceHub { get; private set; }
-        
+
         public void InitWithReferenceHub(ReferenceHub referenceHub)
         {
             ReferenceHub = referenceHub;

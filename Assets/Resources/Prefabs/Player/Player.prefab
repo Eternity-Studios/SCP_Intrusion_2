@@ -315,6 +315,11 @@ MonoBehaviour:
   DashDuration: 0.1
   JumpSpeed: 8
   JumpBufferTime: 0.2
+  StandingHeight: 2
+  StandingCameraHeight: 0.7
+  CrouchingHeight: 1
+  CrouchingCameraHeight: 0.1
+  CrouchSpeed: 5
   Gravity: 30
   StoppingForce: 10
   MaxStamina: 100

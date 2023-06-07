@@ -20,6 +20,12 @@ namespace Player.Movement
         [Header("Jumping")]
         public float JumpSpeed = 1f;
         public float JumpBufferTime = 0.2f;
+        [Header("Crouching")]
+        public float StandingHeight = 2f;
+        public float StandingCameraHeight = 0.7f;
+        public float CrouchingHeight = 1f;
+        public float CrouchingCameraHeight = 0.1f;
+        public float CrouchSpeed = 3f;
         [Header("Gravity")]
         public float Gravity = 9.81f;
         public float StoppingForce = 10f;
@@ -29,6 +35,7 @@ namespace Player.Movement
         public float DashStaminaCost = 50f;
 
         readonly NetworkVariable<float> CurrentStamina = new(0);
+        readonly NetworkVariable<bool> Crouching = new(false);
 
         public float Stamina
         {
@@ -50,7 +57,7 @@ namespace Player.Movement
                 OnStaminaChangeClientRpc(temp, value);
             }
         }
-        
+
         bool hasDoubleJumped = false;
 
         float dashTimer = 0f;
@@ -66,6 +73,7 @@ namespace Player.Movement
 
         float grav;
         float jumpBuffer;
+        float currentSpeed;
 
         private void Awake()
         {
@@ -86,6 +94,8 @@ namespace Player.Movement
 
             inputs.Player.Jump.performed += JumpInput;
             inputs.Player.Dash.performed += DashInput;
+            inputs.Player.Crouch.performed += CrouchInput;
+            inputs.Player.Crouch.canceled += CrouchInput;
             inputs.Player.Enable();
 
             if (IsClient)
@@ -98,6 +108,8 @@ namespace Player.Movement
 
             inputs.Player.Jump.performed -= JumpInput;
             inputs.Player.Dash.performed -= DashInput;
+            inputs.Player.Crouch.performed -= CrouchInput;
+            inputs.Player.Crouch.canceled -= CrouchInput;
             inputs.Player.Disable();
 
             if (IsClient)
@@ -139,6 +151,10 @@ namespace Player.Movement
 
         private void FixedUpdate()
         {
+            controller.height = Crouching.Value ? CrouchingHeight : StandingHeight;
+            Vector3 vec = ReferenceHub.look.camTransform.localPosition;
+            vec.y = Crouching.Value ? CrouchingCameraHeight : StandingCameraHeight;
+
             if (!IsOwner) return;
 
             if (controller.isGrounded && grav <= 0f)
@@ -146,10 +162,12 @@ namespace Player.Movement
             else if (!controller.isGrounded)
                 grav -= Gravity * Time.fixedDeltaTime;
 
+            currentSpeed = Crouching.Value ? CrouchSpeed : Speed;
+
             Vector3 motion;
 
             if (dashTimer <= 0f)
-                motion = MovementInput.x * Speed * Time.fixedDeltaTime * transform.right + MovementInput.y * Speed * Time.fixedDeltaTime * transform.forward + grav * Time.fixedDeltaTime * Vector3.up;
+                motion = MovementInput.x * currentSpeed * Time.fixedDeltaTime * transform.right + MovementInput.y * currentSpeed * Time.fixedDeltaTime * transform.forward + grav * Time.fixedDeltaTime * Vector3.up;
             else
             {
                 if (MovementInput == Vector2.zero)
@@ -199,6 +217,18 @@ namespace Player.Movement
             Dash();
         }
 
+        public void CrouchInput(InputAction.CallbackContext callbackContext)
+        {
+            if (callbackContext.performed)
+            {
+                CrouchServerRpc(true);
+            }
+            else if (callbackContext.canceled)
+            {
+                CrouchServerRpc(false);
+            }
+        }
+
         public void Jump()
         {
             grav = JumpSpeed;
@@ -208,6 +238,12 @@ namespace Player.Movement
         {
             dashTimer = DashDuration;
             SubtractStaminaServerRpc(DashStaminaCost);
+        }
+
+        [ServerRpc]
+        public void CrouchServerRpc(bool pressed)
+        {
+            Crouching.Value = pressed;
         }
 
         [ServerRpc]
